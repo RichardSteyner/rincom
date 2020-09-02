@@ -1,0 +1,55 @@
+<apex:page lightningStylesheets="true" showHeader="false" sideBar="false" standardStylesheets="false" cache="true" docType="html-5.0">
+<html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <head>
+        <style>
+            .shadowDiv,.chatterUpload,/*.uploadProgressDialog,.overlayBackground*/{
+                display:none;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="chatterUpload">
+            <chatter:feed entityId="0063K000004CUUWQA4" />  
+        </div>
+        <a href='#!' id="trigger">Click Me Please</a>
+        <a href='#!' id="cancelUpload">Cancel</a>
+
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function(event) {
+                console.log("asdasds");
+                document.getElementById('publisherAttachContentPost').click();
+                document.getElementById('chatterUploadFileAction').click();
+                
+                document.getElementById('trigger').addEventListener('click',function(event){
+                    var inputChatter = document.getElementById('chatterFile')
+                    inputChatter.click();
+                    inputChatter.addEventListener('onchange',function(event){
+                        console.log('OnChange');
+                        if (inputChatter.files && inputChatter.files[0]) {
+                            console.log('file correct');
+                            //show load
+                            document.getElementById('publishersharebutton').click();
+                        }
+                    })
+
+                });
+                document.getElementById('cancelUpload').addEventListener('click',function(event){
+                    if(chatter.getPublisher().getHandler('ContentPost').handleFileUploadCancel())
+                    sfdcPage.getDialogById('uploadProgressDialog').hide();
+                });
+            }) ;
+        /*  
+        $ ('. uploadFileSizeLimit'). hide ();  
+        $ ('. contentPublisherSlideDown.customPanel.alignTop'). css ('borde', '0');
+        $ ('. clearContentPanelButtonContainer'). hide ();
+        $ ('. publisherFeedItemTypeChoices'). hide ();      
+        $ ('. cxfeedinnerwrapper'). hide ();  
+        $ ('. publisherBottomBarPlaceholder'). hide ();
+        $ ('. publisherTextAreaPlaceholder.alignCenter'). hide ();*/
+        </script>
+    </body>
+</html>
+    
+</apex:page>

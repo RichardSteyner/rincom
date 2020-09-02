@@ -1,0 +1,2530 @@
+<apex:page controller="TestController" lightningStylesheets="true" showHeader="false" sideBar="false" standardStylesheets="false" cache="true" 
+           docType="html-5.0">
+    
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <head>   
+        <meta charset="utf-8" />
+            <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <apex:stylesheet value="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.5.1/css/iziModal.min.css"/>
+    <style type="text/css">
+    /*STYLES FOR INPUT NUMBER*/
+        html{
+        	font-family: 'Salesforce Sans',Arial,sans-serif;
+        }
+        input[type=text],
+        select{
+            height: 25px;
+        }
+        i{
+            font-size: 18px;
+        }
+        textarea{
+            width: 100%;
+        }
+        .iziModal-content{
+            width: auto !important;
+        }
+        input[type=date]::-webkit-inner-spin-button,
+        input[type=date]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+        }
+        input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .date-submit-form{
+            height: 28px;
+        }
+        body input[type="number"]{
+            border: 1px solid rgb(221, 219, 218);
+            max-width: 100%;
+            border-radius: .25rem;
+            background-color: rgb(255, 255, 255);
+            color: rgb(8, 7, 7);
+            -webkit-transition: border .1s linear,background-color .1s linear;
+            transition: border .1s linear,background-color .1s linear;
+            display: inline-block;
+            padding: 0 1rem 0 .75rem;
+            min-height: calc(1.875rem + (1px * 2));
+            line-height: 1.875rem;
+        }
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+        /*GENERAL STYLES*/
+        .opbo-field{margin-bottom: 10px;}
+        #col1,#col2{width:49%;display:inline-block;}
+        .divider{width:600px;border-bottom:2px solid whitesmoke;}
+        .form-center{width:800px;margin-left: 250px;}
+        html{background:whitesmoke;}
+        body{background: white;width:/*900px*/80%;padding: 30px;margin: auto;margin-top: 50px;margin-bottom: 50px;box-shadow: 5px 6px 8px #888888;}
+        input[type=text]{width: 100%;margin-bottom:10px;}
+        .row {display: flex; flex-direction:row;}
+        .column {flex: 50%;padding: 10px;}
+        .ERM,#SRMSP{display: none;}
+        .design-input-erm-srmsp{
+            width: 100%;
+            height: 30px;
+            border-radius: 4px;
+            margin-bottom: 11px;
+        }
+        .canvas-style{
+            border: 2px solid black;
+        }
+        .multiSelectPicklistRow>td>select{
+            width: 240px;
+            height: 200px;
+        }
+        .require-fact-finders{
+            margin-top: 10px;
+        }
+        .design-for-multiselect img{
+            width: 50px;
+            height: 50px;
+        }
+        /*MARGIN FOR AL FIRST PART OF VFP*/
+        .row-paf{
+            padding-left: 40px;
+            padding-right: 40px;
+        }
+        /*STYLES FOR HEADER OF EVERY PAGE*/
+        .header{
+            border: 1.5px solid black;
+            height: 60px;
+        }
+        .header-left{
+            flex: 70%;
+            background-color: red;
+            box-shadow: inset 0px 0px 0px 3px #fff;
+            background: linear-gradient(to bottom, #F50C0A 0%, #DE1D1D 50%, #9E0000 100%);
+        }
+        .header-right{
+            display:flex;
+            flex: 30%;
+            background-color: black;
+            color: gray;
+            box-shadow: inset 0px 0px 0px 3px #fff;
+            text-align:right;
+            align-items: center;
+        }
+        .header-text-right{
+            font-size: 15px;
+            margin-bottom: 0px;
+            margin-left:5px;
+        }
+        /*CONTAINER PAF STYLES*/
+        .container-paf,
+        .container-ff{
+            width: 98%;
+            padding:20px;
+        }
+        .paf-subline{
+            width: 100%;
+            height: 15px;
+            background: linear-gradient(to bottom, rgba(255,63,38,1) 1%,rgba(226,22,22,1) 44%,rgba(226,22,22,1) 55%,rgba(150,0,0,1) 100%);
+        }
+        /*GENERAL DESIGN FOR INPUTS */
+        .general-design-input{
+            margin-left: 8px;
+            margin-bottom: 0px !important;
+            outline: 0 !important;
+            border-width: 0 0 2px !important;
+            border-color: #c00c0c !important;
+            background-color: #eaeaea !important;
+        }
+        .general-design-input:focus{
+            background-color: white !important;;
+            box-shadow:none !important;
+        }
+        .general-design-undertext{
+            margin-top:0px;
+            font-size: 13px;
+            margin-left: 10px;
+        }
+        /* GROSS EARNINGS LAST 4 YEARS STYLE */
+        .gelfy-style{
+            margin-left: .5rem;
+            margin-bottom: 20px !important;
+        }
+        /* STYLE FOR TABLE BUSSINESS OWNERS */
+        .bo-style{
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .bo-style td,.bo-style th{
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        .bo-style tr:nth-child(even) {
+            background-color: #eaeaea;
+        }
+        .dateFormat{
+            display:none;
+        }
+        .ERIHiddenTitleSPCB,
+        .ERIHiddenTitleERMCB{
+            display:none;
+        }
+        .ERI-design-input{
+            width:100%;
+            height: 25px;
+            margin-bottom: 10px !important;
+        }
+        .ERM-design-radiobuttons-text{
+            text-align: left;               
+            /*padding-left: 80px;*/
+        }
+        .ERM-design-radiobuttons-text>h3{
+            font-size: 16px;
+        }
+        .ERM-design-radiobuttons-list{
+            flex: 90% !important;
+        }
+        .delete-contact-fields,
+        .delete-contact-BO{
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background-color: #c53535;
+            color: white;
+            font-weight: bold;
+            font-size: 17px;
+            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+            transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            transition-delay: 0.2s;
+            border: none;
+            outline:none;
+        }
+        .new-contact-button,
+        .new-bussiness-owner,
+        .submit-form-button,
+        .submit-form-fake-button{
+            background-color: #c53535 !important;
+            color: white !important;
+            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26) !important;
+            transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            transition-delay: 0.2s !important;
+            border: none !important;
+            outline:none !important;
+        }
+        .submit-form-button{
+            display: none;
+        }
+        .delete-contact-fields:hover,
+        .submit-form-fake-button:hover,
+        .delete-contact-BO:hover,
+        .new-contact-button:hover,
+        .submit-form-button:hover{
+            background-color: #9a1b1b !important;
+        }
+        .input-bo-currency{
+            border: 1px solid rgb(221, 219, 218);
+            max-width: 100%;
+            border-radius: .25rem;
+            background-color: rgb(255, 255, 255);
+            color: rgb(8, 7, 7);
+            -webkit-transition: border .1s linear,background-color .1s linear;
+            transition: border .1s linear,background-color .1s linear;
+            display: inline-block;
+            padding: 0 1rem 0 .75rem;
+            min-height: calc(1.875rem + (1px * 2));
+            line-height: 1.875rem;
+            margin-bottom: 10px;
+        }
+        .hidden-field{
+            display: none !important;
+        }
+        .reinsurance-style{
+            text-align: justify;
+            font-weight: normal;
+            margin-bottom: 0px;
+        }
+        /* OVERRIDE TIPPY JS STYLE */
+        .tippy-tooltip {
+            /* background-color: #DBEEF5; */
+            border-radius: 5px;
+            color: black;
+        }
+        .tippy-tooltip .tippy-backdrop{
+            background-color:rgb(234, 234, 234);
+        }
+        /* OVERRIDE IZI MODAL STYLE */
+        .iziModal-content{
+            padding: 30px !important;
+        }
+        /* STYLES BUTTONS */
+        .tooltip-general{
+            width: 33px;
+            height: 33px;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 15px;
+            border:none;
+        }
+        .tooltip-namechoice,.tooltip-president,.tooltip-shareholder{
+            width: 33px;
+            height: 33px;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 15px;
+            border:none;
+        }
+        /*REQUIRE FACT FINDERS TEXT*/
+        .require-fact-finders-text{
+            display: none;
+        }
+        /*ADD MARGIN TOP*/
+        .add-margin-bottom{
+            margin-bottom: 45px !important;
+        }
+        /* STYLE FOR NEW CONTACT AND BUSSINESS OWNERS */
+        .input-bo-string,
+        .input-nc-string{
+          /* display: none; */
+        }
+        
+        .import-details{
+        	padding: 18px;
+        }
+        
+        .number-td {
+        	text-align: right;
+        	padding-right: 6px;
+        }
+    </style>
+	</head> 
+    <body>
+        <div>
+        	<c:StatusProgressBarController objectAPIName="Opportunity"  fieldAPIName="stagename"/><br/>            
+        </div>
+
+    <apex:form >
+
+        <apex:pageMessages ></apex:pageMessages>
+        <div class="row">
+            <!--<div class="column header-left"></div>
+            <div class="column header-right">
+                <p class="header-text-right" style="margin-left:160px;"></p>
+                <p class="header-text-right" style="color:red;"></p>
+            </div>
+			-->
+            <!-- Image logo Strategic Risk -->
+            <div class="column" style="text-align:center;">
+                <apex:image value="{!$Resource.LogoRincon}" width="100%" style="margin-top:-20px;margin-bottom:-30px;max-width:700px;" /> 
+            </div>
+        </div>
+	
+
+        <!-- <apex:inputHidden value="{!jsonContacts}" id="stringContat"/> -->
+        <div style="display:none">
+          <apex:inputText styleClass="input-nc-string" value="{!strNewContacts}"/>
+          <apex:inputText styleClass="input-bo-string" value="{!strBussinessOwners}"/>
+        </div>
+
+        <div class="container-paf">
+            
+            <div class="row">
+                <div class="column">
+                    <h3 class="reinsurance-style">
+                        Reinsurance has tax implications in a number of areas including (but not limited to): estate, gift and income taxes. 
+                        Clients should always be advised to rely on their legal and tax advisors to help them navigate through their various tax issues. 
+                        Strategic Risk Alternatives and representatives do not give tax or legal advice. Please consult with your attorney, accountant, 
+                        or tax advisor for additional information.
+                    </h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="column">
+                    <h2>Incorporation Form</h2>
+                    <div class="paf-subline"></div>
+                </div>
+            </div>
+
+            <!-- <div class="row">
+                <div class="column" style="text-align:center;">
+                    <h2 style="text-decoration: underline;">Enterprise Risk Managment</h2>
+                </div>
+            </div>
+
+            <div class="row" style="padding-left: 100px;">
+                <div class="column">
+                    <apex:inputCheckbox style="margin-left: .5rem;" value="{!valUA}"/>Unauthorized Access<br/>
+                    <apex:inputCheckbox value="{!valSCI}"/>Supply Chain Interruption<br/>
+                    <apex:inputCheckbox value="{!valCBI}"/>Contingent Business Interruption<br/>
+                    <apex:inputCheckbox value="{!valPR}"/>Product Recall<br/>
+                    <apex:inputCheckbox value="{!valBP}"/>Brand Protection<br/>
+                    <apex:inputCheckbox value="{!valPL}"/>Professional Liability<br/>
+                </div>
+                <div class="column">
+                    <apex:inputCheckbox style="margin-left: .5rem;" value="{!valFBI}"/>Food Borne Illness<br/>
+                    <apex:inputCheckbox value="{!valAA}"/>Audit Assurance<br/>
+                    <apex:inputCheckbox value="{!valDR}"/>Dispute Resolution<br/>
+                    <apex:inputCheckbox value="{!valPRISK}"/>Political Risk<br/>
+                    <apex:inputCheckbox value="{!valELI}"/>Employer Liability Interruption<br/>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="column" style="text-align:center;">
+                    <h2 style="text-decoration: underline;">Strategic Risk Alternatives’ Specialty Programs</h2>
+                </div>
+            </div>
+
+            <div class="row" style="padding-left: 100px;">
+                <div class="column">
+                    <apex:inputCheckbox style="margin-left: .5rem;" value="{!valDPP}"/>Dental Protection Plan<br/>
+                    <apex:inputCheckbox value="{!valSA}"/>Strategic Auto<br/>
+                    <apex:inputCheckbox value="{!valTA}"/>Tenant Assurance<br/>
+                </div>
+                <div class="column">
+                    <apex:inputCheckbox style="margin-left: .5rem;" value="{!valSAS}"/>Storage Assurance<br/>
+                    <apex:inputCheckbox value="{!valCW}"/>Custom Warranty<br/>
+                </div>
+            </div> -->
+            
+            <div class="row">
+                <div class="column" style="text-align:center;">
+                    <h2 style="margin-bottom: 0px;margin-top:20px;">Loan Status</h2>
+                    <apex:inputField styleClass="general-design-input stage-name" value="{!opportunity.StageName}"/>
+                	
+                    <!--<apex:input type="date" value="{!auxDateofBirth}" 
+                                style="border-top: 0; border-left: 0; border-right: 0; border-bottom: 1px solid #000000; width: 90%;"/>-->
+                </div>
+            </div>
+            
+            
+            
+            <div class="row">
+                <div class="column" style="text-align:center;">
+                    <h2 style="margin-bottom: 0px;margin-top:20px;">Projected Close Date</h2>
+                    <input type="date" class="general-design-input date-submit-form" placeholder="MM-DD-YYYY" 
+                           style="width:40%;" value="{!auxCloseDate}"/>
+                	
+                    <!--<apex:input type="date" value="{!auxDateofBirth}" 
+                                style="border-top: 0; border-left: 0; border-right: 0; border-bottom: 1px solid #000000; width: 90%;"/>-->
+                </div>
+            </div>
+            
+            
+            <div class="row">
+                <div class="column" style="text-align:center;">
+                	<h2 style="margin-bottom: 0px;margin-top:20px;">Where are we</h2>
+                    <apex:inputField value="{!opportunity.Where_are_we__c}" style="width:40%;"/>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="column" style="text-align:center;">
+                    <h2 style="margin-bottom: 0px;margin-top:20px;">Next Step</h2>
+                    <apex:inputField styleClass="general-design-input secondchoice-field" 
+                                     value="{!opportunityPAF.NextStep}" style="width:65%;" />
+                </div>
+            </div>
+            
+            <apex:outputPanel id="test2">
+				Hi - {!opportunity.StageName}
+            </apex:outputPanel>
+            
+            <div class="row">
+                <h3 class="paf-subline" style="height:30px;color:white;padding-left: 20px;padding-top: 5px;">Important Details about your Loan:</h3>
+            </div>
+
+            <apex:outputPanel id="detailsLoan">
+                
+            <div class="row import-details" style="{!IF(opportunity.Signed_Letter_of_Intent__c == null, 'display: none;', '')}">
+				<div class="column" style="vertical-align: top;">
+                	<strong>Signed Letter of Intent: </strong>
+                </div>
+                <div class="column">
+                	<apex:outputText styleClass="display: inline-block;" value="{0, date, MM'/'dd'/'yyyy}">
+                    	<apex:param value="{!IF(opportunity.Signed_Letter_of_Intent__c == null, '', opportunity.Signed_Letter_of_Intent__c)}" />
+                    </apex:outputText>
+                </div>
+			</div>
+            
+            <div class="row import-details" style="{!IF(opportunity.Good_Faith_Deposit_Received__c == null, 'display: none;', '')}">
+				<div class="column" style="vertical-align: top;">
+                	<strong>Good Faith Deposit Received: </strong>
+                    <button type="button" class="tooltip-general tooltip-goodfaithdepositreceived" data-tippy-content="">?</button>
+                </div>
+                <div class="column">
+                	<apex:outputText styleClass="display: inline-block;" value="{0, date, MM'/'dd'/'yyyy}">
+                    	<apex:param value="{!IF(opportunity.Good_Faith_Deposit_Received__c == null, '', opportunity.Good_Faith_Deposit_Received__c)}" />
+                    </apex:outputText>
+                </div>
+			</div>
+            
+            <div class="row import-details" style="{!IF(opportunity.Appraisal_Inspection_Date__c == null, 'display: none;', '')}">
+				<div class="column" style="vertical-align: top;">
+                	<strong>Appraisal Inspection Date: </strong>
+                    <button type="button" class="tooltip-general tooltip-appraisalinspectiondate" data-tippy-content="">?</button>
+                </div>
+                <div class="column">
+                	<apex:outputText styleClass="display: inline-block;" value="{0, date, MM'/'dd'/'yyyy}">
+                    	<apex:param value="{!IF(opportunity.Appraisal_Inspection_Date__c == null, '', opportunity.Appraisal_Inspection_Date__c)}" />
+                    </apex:outputText>
+                </div>
+			</div>
+            
+            <div class="row import-details" style="{!IF(opportunity.Appraisal_Due_Date__c == null, 'display: none;', '')}">
+				<div class="column" style="vertical-align: top;">
+                	<strong>Appraisal Due Date: </strong>
+                    <button type="button" class="tooltip-general tooltip-appraisalduedate" data-tippy-content="">?</button>
+                </div>
+                <div class="column">
+                	<apex:outputText styleClass="display: inline-block;" value="{0, date, MM'/'dd'/'yyyy}">
+                    	<apex:param value="{!IF(opportunity.Appraisal_Due_Date__c == null, '', opportunity.Appraisal_Due_Date__c)}" />
+                    </apex:outputText>
+                </div>
+			</div>
+            
+            <div class="row import-details" style="{!IF(opportunity.Interest_Rate__c == null, 'display: none;', '')}">
+				<div class="column" style="vertical-align: top;">
+                	<strong>Interest Rate: </strong>
+                </div>
+                <div class="column">
+                	<apex:outputText value="{0,number,###,##0.00}">
+                    	<apex:param value="{!IF(opportunity.Interest_Rate__c==null, 0, opportunity.Interest_Rate__c)}" />
+                    </apex:outputText>
+                </div>
+			</div>
+            
+            <div class="row import-details" style="{!IF(opportunity.Loan_Amount__c == null, 'display: none;', '')}">
+				<div class="column" style="vertical-align: top;">
+                	<strong>Loan Amount: </strong>
+                </div>
+                <div class="column">
+                	<apex:outputText value="${0,number,###,##0.00}">
+                    	<apex:param value="{!IF(opportunity.Loan_Amount__c==null, 0, opportunity.Loan_Amount__c)}" />
+                    </apex:outputText>
+                </div>
+			</div>
+            
+            <div class="row import-details" style="{!IF(opportunity.StageName == 'Closed Won', IF(opportunity.Actual_Close_Date__c != null ,'','display:none;') ,'display:none;')}">
+				<div class="column" style="vertical-align: top;">
+                	<strong>Actual Close Date: </strong>
+                    <button type="button" class="tooltip-general tooltip-actualclosedate" data-tippy-content="">?</button>
+                </div>
+                <div class="column">
+                	<apex:outputText styleClass="display: inline-block;" value="{0, date, MM'/'dd'/'yyyy}">
+                    	<apex:param value="{!IF(opportunity.Actual_Close_Date__c == null, '', opportunity.Actual_Close_Date__c)}" />
+                    </apex:outputText>
+                </div>
+			</div>
+            
+            <div class="row import-details" style="{!IF(opportunity.StageName == 'Closed Won',  IF(opportunity.Prepayment_expiration_date__c != null ,'','display:none;') ,'display:none;')}">
+				<div class="column" style="vertical-align: top;">
+                	<strong>Prepayment expiration date: </strong>
+                    <button type="button" class="tooltip-general tooltip-prepaymentexpirationdate" data-tippy-content="">?</button>
+                </div>
+                <div class="column">
+                	<apex:outputText styleClass="display: inline-block;" value="{0, date, MM'/'dd'/'yyyy}">
+                    	<apex:param value="{!IF(opportunity.Prepayment_expiration_date__c == null, '', opportunity.Prepayment_expiration_date__c)}" />
+                    </apex:outputText>
+                </div>
+			</div>
+            
+            <div class="row import-details" style="{!IF(opportunity.StageName == 'Closed Won',  IF(opportunity.Fixed_Period_Expiration__c != null ,'','display:none;') ,'display:none;')}">
+				<div class="column" style="vertical-align: top;">
+                	<strong>Fixed Period Expiration: </strong>
+                    <button type="button" class="tooltip-general tooltip-fixedperiodexpiration" data-tippy-content="">?</button>
+                </div>
+                <div class="column">
+                	<apex:outputText styleClass="display: inline-block;" value="{0, date, MM'/'dd'/'yyyy}">
+                    	<apex:param value="{!IF(opportunity.Fixed_Period_Expiration__c == null, '', opportunity.Fixed_Period_Expiration__c)}" />
+                    </apex:outputText>
+                </div>
+			</div>
+            
+            <div class="row import-details" style="{!IF(opportunity.StageName == 'Closed Won',  IF(opportunity.Balloon_Payment__c != null ,'','display:none;') ,'display:none;')}">
+				<div class="column" style="vertical-align: top;">
+                	<strong>Balloon Payment: </strong>
+                    <button type="button" class="tooltip-general tooltip-ballonpayment" data-tippy-content="">?</button>
+                </div>
+                <div class="column">
+                	<apex:outputText styleClass="display: inline-block;" value="{0, date, MM'/'dd'/'yyyy}">
+                    	<apex:param value="{!IF(opportunity.Balloon_Payment__c == null, '', opportunity.Balloon_Payment__c)}" />
+                    </apex:outputText>
+                </div>
+			</div>
+            
+            </apex:outputPanel>            
+
+               <!--<div class="row">
+                   <div class="column">
+                       <apex:inputField styleClass="general-design-input" style="resize:none;" value="{!contact.Phone}"/>
+                       <h3 class="general-design-undertext">Phone Number: Work</h3>
+                   </div>
+                   <div class="column">
+                       <apex:inputField styleClass="general-design-input" value="{!contact.MobilePhone}"/>
+                       <h3 class="general-design-undertext">Mobile</h3>
+                   </div>
+               </div>-->
+            
+        <div class="row">
+                <h3 class="paf-subline" style="height:30px;color:white;padding-left: 20px;padding-top: 5px;">All Loans:</h3>
+      	</div>
+            
+     	<apex:outputPanel id="oppsRelated">
+                        <script>
+						$('input,select').keypress(function(event) { return event.keyCode != 13; });
+                        </script>
+           	<input type="hidden" id="message-alert" value="{!messageAlert}" />
+            <div class="table-responsive">
+            	<table class="table table-sm" style="width: 100%;">
+                	<thead>
+                    	<tr style="font-weight:bold;">
+                            <th style="width:20%; border: 1px solid black; text-align:center;">Property Address</th>
+                            <th style="width:20%; border: 1px solid black; text-align:center;">Interest Rate</th>
+                            <th style="width:20%; border: 1px solid black; text-align:center;">Loan Amount</th>
+                            <th style="width:20%; border: 1px solid black; text-align:center;">Prepayment Expiration Date</th>
+                            <th style="width:20%; border: 1px solid black; text-align:center;">Fixed Period Expiration</th>
+                     	</tr>
+                  	</thead>
+                    <tbody>
+                    	<apex:variable var="count" value="{!0}" />
+                        <apex:variable var="total" value="{!0}" />
+                        <apex:repeat value="{!opps}" var="opp">
+                            <tr>
+                                <td style="border: 1px solid black;">{!opp.Name}</td>
+                                <td style="border: 1px solid black;" class="number-td">
+                                    <apex:outputText value="{0,number,###,##0.00}%">
+                                        <apex:param value="{!opp.Interest_Rate__c}"/>
+                                    </apex:outputText>
+                                </td>
+                                <td style="border: 1px solid black;" class="number-td">
+                                    <apex:outputText value="${0,number,###,##0.00}">
+                                        <apex:param value="{!opp.Loan_Amount__c}"/>
+                                    </apex:outputText>
+                                </td>
+                                <td style="border: 1px solid black;">
+                                    <apex:outputText value="{0, date, MM'/'dd'/'yyyy}">
+                                        <apex:param value="{!opp.Prepayment_expiration_date__c}" />
+                                    </apex:outputText>
+                                </td>
+                                <td style="border: 1px solid black;">
+                                	<apex:outputText value="{0, date, MM'/'dd'/'yyyy}">
+                                        <apex:param value="{!opp.Fixed_Period_Expiration__c}" />
+                                    </apex:outputText>
+                                </td>
+                            </tr>
+                        <apex:variable var="count" value="{!count + 1}" />
+                        <apex:variable var="total" value="{!total + IF(opp.Loan_Amount__c <> null, opp.Loan_Amount__c, 0)}" />
+                        </apex:repeat>
+                 	</tbody>
+                    <tfooter>
+                    	<tr style="font-weight:bold;">
+                        	<td colspan="2">{!count} records</td>
+                            <td class="number-td">
+                            	<apex:outputText value="${0,number,###,##0.00}">
+                                	<apex:param value="{!total}"/>
+                            	</apex:outputText>
+                            </td>
+                            <td colspan="2"></td>
+                     	</tr>
+                	</tfooter>
+              	</table>
+          	</div>
+     	</apex:outputPanel>
+
+            <div class="row row-paf" style="flex-direction: column;">
+            <div class="row">
+                <div class="column" style="text-align:right;">
+                    <h2 style="text-decoration: underline;margin-bottom: 0px;margin-top:20px;">Name Choice</h2>
+                </div>
+                <div class="column" style="text-align:left;margin-top: 17px;">
+                    <button type="button" class="tooltip-namechoice" data-tippy-content="">?</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="column" style="text-align:justify;">
+                    <h3 style="font-weight: normal;margin: 0px;">We ask that you submit at least two name choices (<i><u>NO</u> initials, please</i>). We will notify you once we have name approval.</h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="column" style="flex: 30%;"><h3 style="margin-top: 0px;"><i>First Choice:</i></h3></div>
+
+                <div class="column" style="flex: 70%;">
+                    <apex:inputField styleClass="general-design-input firstchoice-field" 
+                                     value="{!opportunityPAF.Name}" />
+                    <div class="errorMsg hidden-field firstchoice-field-error"><strong>Error:</strong><p style="margin: 0 0 0 10px;"></p></div>
+                </div>
+
+                <div class="column">
+                    <h3 style="margin-top: 0px;font-size: 17px;">Reinsurance Company, Inc.</h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="column" style="flex: 30%;"><h3 style="margin-top: 0px;"><i>Second Choice:</i></h3></div>
+
+                <div class="column" style="flex: 70%;">
+                    <apex:inputField styleClass="general-design-input secondchoice-field" 
+                                     value="{!opportunityPAF.Name}" />
+                    <div class="errorMsg hidden-field secondchoice-field-error"><strong>Error:</strong><p style="margin: 0 0 0 10px;"></p></div>
+                </div>
+
+                <div class="column">
+                    <h3 style="margin-top: 0px;font-size: 17px;">Reinsurance Company, Inc.</h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="column" style="text-align:justify;">
+                    <h3 style="font-weight: normal;margin: 0px;">Strategic Risk Alternatives shall be designated as the company's insurance manager and administrator.</h3>
+                </div>
+            </div>
+
+                <div class="row">
+                    <div class="column" style="text-align:right;">
+                        <h2 style="text-decoration: underline;">President</h2>
+                    </div>
+                    <div class="column" style="text-align:left;margin-top: 17px;">
+                        <button type="button" class="tooltip-president" data-tippy-content="">?</button>
+                    </div>
+                </div>
+
+                <div class="row row-paf">
+                    <div class="column" style="flex: 5%;">
+                        <h3 class="general-design-undertext fnpresident-field-text" style="margin-bottom: 25px;">First Name:</h3>
+                        <h3 class="general-design-undertext lnpresident-field-text" style="margin-bottom: 25px;">Last Name:</h3>
+                        <h3 class="general-design-undertext emailpresident-field-text" style="margin-bottom: 25px;">Social Security #:</h3>
+                        <h3 class="general-design-undertext" style="margin-bottom: 25px;">Email</h3>
+                        <h3 class="general-design-undertext" style="margin-bottom: 25px;">Are you a Shareholder?</h3>
+                        <h3 class="general-design-undertext presidentShares" style="margin-bottom: 25px;display:none;"># of Shares</h3>
+                    </div>
+                    <div class="column">
+                        <apex:inputField styleClass="general-design-input fnpresident-field"
+                                         style="margin-bottom: 10px !important;margin-left: 8px;"
+                                         value="{!contactPresident.FirstName}"/>
+                        <div class="errorMsg hidden-field fnpresident-field-error"><strong>Error:</strong><p style="margin: 0 0 0 10px;"></p></div>
+                        <apex:inputField styleClass="general-design-input lnpresident-field"
+                                         style="margin-bottom: 10px !important;margin-left: 8px;"
+                                         value="{!contactPresident.LastName}"/>
+                        <div class="errorMsg hidden-field lnpresident-field-error"><strong>Error:</strong><p style="margin: 0 0 0 10px;"></p></div>
+                        <apex:inputField styleClass="general-design-input"
+                                         style="margin-bottom: 10px !important;"
+                                         value="{!contactPresident.Title}"/>
+                        <apex:inputField styleClass="general-design-input email-data emailpresident-field"
+                                         style="margin-bottom: 10px !important;"
+                                         value="{!contactPresident.Email}"/>
+                        <div class="errorMsg hidden-field emailpresident-field-error"><strong>Error:</strong><p style="margin: 0 0 0 10px;"></p></div>
+                       	<div>
+                          <input type="radio" name="president" id="presidentYes" class="presidentYes" value="yes"/> Yes
+                          <input type="radio" name="president" id="presidentNo" class="presidentNo" value="no"/> No
+                        </div>
+                        <div class="presidentShares" style="display:none;margin-left: .5rem;margin-top: 20px;">
+                          <apex:inputField styleClass="general-design-input"
+                                         style="margin-bottom: 10px !important;"
+                                         value="{!contactPresident.Phone}"/>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="column" style="text-align:center;">
+                        <h2 style="text-decoration: underline;">Secretary</h2>
+                    </div>
+                </div>
+
+                <div class="row row-paf">
+                    <div class="column" style="flex: 5%;">
+                        <h3 class="general-design-undertext" style="margin-bottom: 25px;">First Name:</h3>
+                        <h3 class="general-design-undertext" style="margin-bottom: 25px;">Last Name:</h3>
+                        <h3 class="general-design-undertext" style="margin-bottom: 25px;">Social Security #:</h3>
+                        <h3 class="general-design-undertext" style="margin-bottom: 25px;">Email</h3>
+                        <h3 class="general-design-undertext" style="margin-bottom: 25px;">Are you a Shareholder?</h3>
+                        <h3 class="general-design-undertext secretaryShares" style="margin-bottom: 25px;display:none;"># of Shares</h3>
+                    </div>
+                    <div class="column">
+                        <apex:inputField styleClass="general-design-input"
+                                         style="margin-bottom: 10px !important;margin-left: 8px;"
+                                         value="{!contactSecretary.FirstName}"/>
+                        <apex:inputField styleClass="general-design-input secretary-lastname-required"
+                                         style="margin-bottom: 10px !important;margin-left: 8px;"
+                                         value="{!contactSecretary.LastName}"/>
+                        <apex:inputField styleClass="general-design-input"
+                                         style="margin-bottom: 10px !important;"
+                                         value="{!contactSecretary.Title}"/>
+                        <apex:inputField styleClass="general-design-input email-data"
+                                         style="margin-bottom: 10px !important;"
+                                         value="{!contactSecretary.Email}"/>
+                       	<div>
+                          <input type="radio" name="secretary" class="secretaryYes" value="yes"/> Yes
+                          <input type="radio" name="secretary" class="secretaryNo" value="no"/> No
+                        </div>
+                        <div class="secretaryShares" style="display:none;margin-left: .5rem;margin-top: 20px;">
+                          <apex:inputField styleClass="general-design-input"
+                                         style="margin-bottom: 10px !important;"
+                                         value="{!contactSecretary.Phone}"/>
+                        </div>
+                    </div>
+                </div>
+
+                <!--    <div class="row">
+                    <div class="column" style="text-align:center;">
+                        <h2 style="text-decoration: underline;">Board Member #1</h2>
+                    </div>
+                </div>
+
+                <div class="row row-paf">
+                    <div class="column" style="flex: 5%;">
+                        <h3 class="general-design-undertext" style="margin-bottom: 25px;">Full Name:</h3>
+                        <h3 class="general-design-undertext" style="margin-bottom: 25px;">Social Security #:</h3>
+                        <h3 class="general-design-undertext" style="margin-bottom: 25px;">Address:</h3>
+                    </div>
+                    <div class="column">
+                        <apex:inputField styleClass="general-design-input"
+                                         style="margin-bottom: 10px !important;margin-left: 8px;"
+                                         value="{!opportunityPAF.Board_Member_1_Name__c}"/>
+                        <apex:inputField styleClass="general-design-input"
+                                         style="margin-bottom: 10px !important;margin-left: 8px;"
+                                         value="{!opportunityPAF.Board_Member_1_SSN__c}"/>
+                        <apex:inputField styleClass="general-design-input"
+                                         style="margin-bottom: 10px !important;margin-left: 8px;"
+                                         value="{!opportunityPAF.Board_Member_1_Address__c}"/>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="column" style="text-align:center;">
+                        <h2 style="text-decoration: underline;">Board Member #2</h2>
+                    </div>
+                </div>
+
+                <div class="row row-paf">
+                    <div class="column" style="flex: 5%;">
+                        <h3 class="general-design-undertext" style="margin-bottom: 25px;">Full Name:</h3>
+                        <h3 class="general-design-undertext" style="margin-bottom: 25px;">Social Security #:</h3>
+                        <h3 class="general-design-undertext" style="margin-bottom: 25px;">Address:</h3>
+                    </div>
+                    <div class="column">
+                        <apex:inputField styleClass="general-design-input"
+                                         style="margin-bottom: 10px !important;margin-left: 8px;"
+                                         value="{!opportunityPAF.Board_Member_2_Name__c}"/>
+                        <apex:inputField styleClass="general-design-input"
+                                         style="margin-bottom: 10px !important;"
+                                         value="{!opportunityPAF.Board_Member_2_SSN__c}"/>
+                        <apex:inputField styleClass="general-design-input"
+                                         style="margin-bottom: 10px !important;"
+                                         value="{!opportunityPAF.Board_Member_2_Address__c}"/>
+                    </div>
+                </div> -->
+
+                <div class="row">
+                    <div class="column" style="text-align:right;">
+                        <h2 style="text-decoration: underline;">Shareholder</h2>
+                    </div>
+                    <div class="column" style="text-align:left;margin-top: 17px;">
+                        <button type="button" class="tooltip-shareholder" data-tippy-content="">?</button>
+                    </div>
+                </div>
+
+                <div class="row row-paf">
+                  <div class="column" style="flex: 5%;">
+                      <h3 class="general-design-undertext" style="margin-bottom: 25px;">First Name:</h3>
+                      <h3 class="general-design-undertext" style="margin-bottom: 25px;">Last Name:</h3>
+                      <h3 class="general-design-undertext" style="margin-bottom: 25px;">Social Security #:</h3>
+                      <h3 class="general-design-undertext" style="margin-bottom: 25px;"># of Shares:</h3>
+                      <h3 class="general-design-undertext" style="margin-bottom: 25px;">Email</h3>
+                  </div>
+                  <div class="column">
+                      <apex:inputField styleClass="general-design-input shareholder-firstname-required"
+                                       style="margin-bottom: 10px !important;margin-left: 8px;"
+                                       value="{!contactShareholder.FirstName}"/>
+                      <apex:inputField styleClass="general-design-input shareholder-lastname-required"
+                                       style="margin-bottom: 10px !important;margin-left: 8px;"
+                                       value="{!contactShareholder.LastName}"/>
+                      <apex:inputField styleClass="general-design-input"
+                                       style="margin-bottom: 10px !important;"
+                                       value="{!contactShareholder.Title}"/>
+                      <apex:inputField styleClass="general-design-input sharesShareholder"
+                                       style="margin-bottom: 10px !important;"
+                                       value="{!contactShareholder.Phone}"/>
+                      <apex:inputField styleClass="general-design-input shareholder-email-required email-data"
+                                       style="margin-bottom: 10px !important;"
+                                       value="{!contactShareholder.Email}"/>
+                  </div>
+              </div>
+
+                <!-- <div class="row row-paf">
+                    <div class="column" style="flex: 5%;">
+                        <h3 class="general-design-undertext" style="margin-bottom: 25px;">Full Name:</h3>
+                        <h3 class="general-design-undertext" style="margin-bottom: 25px;">Social Security #:</h3>
+                        <h3 class="general-design-undertext" style="margin-bottom: 25px;">Address:</h3>
+                        <h3 class="general-design-undertext" style="margin-bottom: 25px;"># of Shares:</h3>
+                        <h3 class="general-design-undertext" style="margin-bottom: 25px;">Email:</h3>
+                    </div>
+                    <div class="column">
+                        <apex:inputField styleClass="general-design-input"
+                                         style="margin-bottom: 10px !important;margin-left: 8px;"
+                                         value="{!opportunityPAF.Shareholder_1_Name__c}"/>
+                        <apex:inputField styleClass="general-design-input"
+                                         style="margin-bottom: 10px !important;"
+                                         value="{!opportunityPAF.Shareholder_1_SSN__c}"/>
+                        <apex:inputField styleClass="general-design-input"
+                                         style="margin-bottom: 10px !important;"
+                                         value="{!opportunityPAF.Shareholder_1_Address__c}"/>
+                        <apex:inputField styleClass="general-design-input"
+                                         style="margin-bottom: 10px !important;"
+                                         value="{!opportunityPAF.Shareholder_1_No_of_Shares__c}"/>
+                    </div>
+                </div> -->
+
+
+                <!--<div class="row">
+                    <div class="column" style="text-align:center;">
+                        <h2 style="text-decoration: underline;">Shareholder #2</h2>
+                    </div>
+                </div>
+
+                <div class="row row-paf">
+                    <div class="column" style="flex: 5%;">
+                        <h3 class="general-design-undertext" style="margin-bottom: 25px;">Full Name:</h3>
+                        <h3 class="general-design-undertext" style="margin-bottom: 25px;">Social Security #:</h3>
+                        <h3 class="general-design-undertext" style="margin-bottom: 25px;">Address:</h3>
+                        <h3 class="general-design-undertext" style="margin-bottom: 25px;"># of Shares:</h3>
+                    </div>
+                    <div class="column">
+                        <apex:inputField styleClass="general-design-input"
+                                         style="margin-bottom: 10px !important;margin-left: 8px;"
+                                         value="{!opportunityPAF.Shareholder_2_Name__c}"/>
+                        <apex:inputField styleClass="general-design-input"
+                                         style="margin-bottom: 10px !important;"
+                                         value="{!opportunityPAF.Shareholder_2_SSN__c}"/>
+                        <apex:inputField styleClass="general-design-input"
+                                         style="margin-bottom: 10px !important;"
+                                         value="{!opportunityPAF.Shareholder_2_Address__c}"/>
+                        <apex:inputField styleClass="general-design-input"
+                                         style="margin-bottom: 10px !important;"
+                                         value="{!opportunityPAF.Shareholder_2_No_os_Shares__c}"/>
+                    </div>
+                </div> -->
+
+                <!--<div class="row">
+                    <div class="column"></div>
+                    <div class="column">
+                        <input type="text" class="general-design-input" value=""/>
+                        <h3 class="general-design-undertext">Print Name</h3>
+                        <input type="text" class="general-design-input" style="margin-left:0px;" value=""/>
+                        <h3 class="general-design-undertext" >Title</h3>
+                        <input type="text" class="general-design-input" style="margin-left:0px;" value=""/>
+                        <h3 class="general-design-undertext">Signature</h3>
+                    </div>
+                    <div class="column"></div>
+                </div>
+
+                <div class="row">
+                    <div class="column"></div>
+                    <div class="column">
+                        <input type="text" class="general-design-input" style="margin-left:0px;" value=""/>
+                        <h3 class="general-design-undertext">Officer Signature</h3>
+                        <input type="text" class="general-design-input" style="margin-left:0px;" value=""/>
+                        <h3 class="general-design-undertext" >Date</h3>
+                    </div>
+                    <div class="column"></div>
+                </div> -->
+                
+                <div class="row">
+                    <div class="column" style="text-align:center;">
+                        <button type="button"
+                                id="btnNewContact"
+                                class="new-contact-button" 
+                                style="width:100px;height:40px;text-align:center;border-radius: 0;" 
+                                onclick="fnGenerateContactIF(this.id)">
+                                New Contact
+                        </button>
+                    </div>
+                </div>
+                
+                   <!--                             <div class="row">
+                    <div class="column" style="text-align:center;">
+                        <button type="button" onclick="appendContacts()">Retrieve DATA</button>
+                    </div>
+                </div>-->
+                
+                <!-- DINAMIC CONTACT EXAMPLE -->
+                <div class="contact-container"></div>
+                <!-- DINAMICA CONTACT EXAMPLE -->
+                
+
+                <div class="row">
+                    <div class="column" style="text-align:center;">
+                        <h2 style="text-decoration: underline;">Photo ID of President</h2>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="column" style="text-align: center;">
+                        <img id="preview-image-license-president" src="{!$Resource.Placeholder}" height="300" width="80%" alt="Photo Copy Driver License Secretary" /><br/>
+                        <!-- <apex:inputFile id="upload-image-license-president" onchange="readURLPresident(this)" value="{!attachmentPresident.Body}" />  
+                        <apex:inputFile id="upload-image-license-president" onchange="readURLPresident(this)" value="{!imagePresident}" />-->
+                        <input type="file" id="upload-image-license-president" onchange="readURLPresident(this)" value="{!imagePresident}" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="column" style="text-align:center;">
+                        <h2 style="text-decoration: underline;">Photo ID of Secretary</h2>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="column" style="text-align: center;">
+                        <img id="preview-image-license-secretary" src="{!$Resource.Placeholder}" height="300" width="80%" alt="Photo Copy Driver License Secretary" /><br/>
+                        <!-- <apex:inputFile id="upload-image-license-secretary" onchange="readURLSecretary(this)" value="{!attachmentSecretary.Body}" />
+                        <apex:inputFile id="upload-image-license-secretary" onchange="readURLSecretary(this)" value="{!imageSecretary}" /> -->
+                        <input type="file" id="upload-image-license-secretary" onchange="readURLSecretary(this)" value="{!imageSecretary}" />
+                    </div>
+                </div>
+                 
+                <div class="row">
+                        <div class="column" style="text-align: left;">
+                            <input type="checkbox" id="scales" name="scales" />I have read and agree to the <a href="#" style="text-decoration: underline;color:#5897fc;" class="trigger">Terms of Service</a>
+                        </div>
+                    </div>
+
+                
+        </div>
+        
+
+
+        <!-- ALL RECORDS FROM FACT FINDER ARE CREATED -->
+        <div class="container-ff">
+            <div class="row">
+            <h2 style="text-align:center;color:#DE1D1D;width: 100%;">Operating Company Fact Finder</h2>
+        	</div>
+
+        	<div class="row">
+            <h3 class="paf-subline" style="height:30px;color:white;padding-left: 20px;padding-top: 5px;">Entity Information:</h3>
+        	</div>
+            
+            <div class="row">
+                <div class="column">
+                    <apex:inputField styleClass="general-design-input lnb-field" value="{!account.Name}"/>
+                    <h3 class="general-design-undertext">Legal Name of Business</h3>
+                    <div class="errorMsg hidden-field lnb-field-error"><strong>Error:</strong><p style="margin: 0 0 0 10px;"></p></div>
+                </div>
+            </div>
+            
+                       <div class="row">
+                <div class="column">
+                    <apex:inputField styleClass="general-design-input" value="{!account.SicDesc}"/>
+                    <h3 class="general-design-undertext">Abbreviation</h3>
+                </div>
+                <div class="column">
+                    <apex:inputField styleClass="general-design-input" value="{!account.Description}"/>
+                    <h3 class="general-design-undertext">Description</h3>
+                </div>
+            </div>
+            
+                        <div class="row">
+                <div class="column">
+                    <apex:inputField styleClass="general-design-input" style="resize:none;" value="{!account.BillingStreet}"/>
+                    <h3 class="general-design-undertext">Street</h3>
+                </div>
+                <div class="column">
+                    <apex:inputField styleClass="general-design-input" value="{!account.BillingCity}"/>
+                    <h3 class="general-design-undertext">City</h3>
+                </div>
+                <div class="column">
+                    <apex:inputField styleClass="general-design-input" value="{!account.BillingState}"/>
+                    <h3 class="general-design-undertext">State</h3>
+                </div>
+                <div class="column">
+                    <apex:inputField styleClass="general-design-input" value="{!account.BillingPostalCode}"/>
+                    <h3 class="general-design-undertext">Zip</h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="column">
+                    <apex:inputField styleClass="general-design-input" value="{!account.Website}"/>
+                    <h3 class="general-design-undertext">Web Address</h3>
+                </div>
+            </div>
+
+            <div class="column">
+                <apex:inputField styleClass="general-design-input" style="resize:none;" value="{!account.NumberOfEmployees}"/>
+                <h3 class="general-design-undertext">Year Organized</h3>
+            </div>
+            <div class="column">
+                <apex:inputField styleClass="general-design-input" value="{!account.AnnualRevenue}"/>
+                <h3 class="general-design-undertext">EIN</h3>
+            </div>
+
+            <div class="row">
+                <div class="column">
+                    <apex:inputField styleClass="general-design-input" style="resize:none;" value="{!account.NumberOfEmployees}"/>
+                    <h3 class="general-design-undertext">Number of Employees</h3>
+                </div>
+                <div class="column">
+                    <apex:inputField styleClass="general-design-input" style="width: 100%;" value="{!account.Type}"/>
+                    <h3 class="general-design-undertext">Type of Entity</h3>
+                </div>
+                <div class="column">
+                    <apex:inputField styleClass="general-design-input" value="{!account.Industry}"/>
+                    <h3 class="general-design-undertext">State of Industry</h3>
+                </div>
+            </div>
+
+            <!--  THIS HAVE A ERROR-->
+				 <!--<div class="row">
+                                    <div class="column">
+                    <apex:inputField styleClass="general-design-input" style="width: 100%;" value="{!account.Type_of_Entity__c}"/>
+                    <h3 class="general-design-undertext">Type of Entity</h3>
+                </div>
+               <div class="column">
+                    <h3 class="general-design-undertext">Type of Entity</h3>
+                    <apex:selectCheckboxes value="{!account.Type_of_Entity__c}" required="true">
+                        <apex:selectOptions value="{!typeofentity}"></apex:selectOptions>
+                    </apex:selectCheckboxes>
+                </div>
+            </div> -->
+
+            <div class="row">
+                <div class="column"><h3 class="general-design-undertext">Gross Earnings (last 4 years)*</h3></div>
+
+                <div class="column">
+                    <apex:inputField styleClass="general-design-input gelfy-style" value="{!account.NumberOfEmployees}"/>
+                    <apex:inputField styleClass="general-design-input gelfy-style" value="{!account.NumberOfEmployees}"/>
+                    <apex:inputField styleClass="general-design-input gelfy-style" value="{!account.NumberOfEmployees}"/>
+                    <apex:inputField styleClass="general-design-input gelfy-style" value="{!account.NumberOfEmployees}"/>
+                </div>
+
+                <div class="column">
+                    <p class="general-design-undertext" style="margin-bottom: 45px;">Current Year Projected</p>
+                    <p class="general-design-undertext" style="margin-bottom: 45px;">Previous Year</p>
+                    <p class="general-design-undertext" style="margin-bottom: 45px;">Two Years Prior</p>
+                    <p class="general-design-undertext" style="margin-bottom: 45px;">Three Years Prior</p>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="column">
+                    <h3 class="general-design-undertext">Is your company on accrual accounting?</h3>
+                </div>
+
+                <div class="column">
+                    <apex:selectRadio value="{!account.Rating}">
+                        <apex:selectOptions value="{!ratingOptions}"></apex:selectOptions>
+                    </apex:selectRadio>
+                </div>
+
+                <div class="column">
+                    <h3 class="general-design-undertext">If yes, fiscal year end?</h3>
+                </div>
+
+                <div class="column">
+                    <apex:inputField styleClass="general-design-input" value="{!account.Company__c}"/>
+                </div>
+
+                <div class="column" style="flex: 20%;">
+                    <h3 class="general-design-undertext">(mm/dd)</h3>
+                </div>
+
+            </div>
+
+        </div>
+
+            <div class="row">
+                <h3 class="paf-subline" style="height:30px;color:white;padding-left: 20px;padding-top: 5px;">Primary Contact:</h3>
+            </div>
+
+               <div class="row">
+                   <div class="column">
+                       <apex:inputField styleClass="general-design-input fnpc-field" style="resize:none;" value="{!contact.FirstName}"/>
+                       <h3 class="general-design-undertext">First Name</h3>
+                    <div class="errorMsg hidden-field fnpc-field-error"><strong>Error:</strong><p style="margin: 0 0 0 10px;"></p></div>
+                   </div>
+                   <div class="column">
+                       <apex:inputField styleClass="general-design-input lnpc-field" value="{!contact.LastName}"/>
+                       <h3 class="general-design-undertext">Last Name</h3>
+                    <div class="errorMsg hidden-field lnpc-field-error"><strong>Error:</strong><p style="margin: 0 0 0 10px;"></p></div>
+                   </div>
+               </div>
+
+               <div class="row">
+                   <div class="column">
+                       <apex:inputField styleClass="general-design-input" style="resize:none;" value="{!contact.Phone}"/>
+                       <h3 class="general-design-undertext">Phone Number: Work</h3>
+                   </div>
+                   <div class="column">
+                       <apex:inputField styleClass="general-design-input" value="{!contact.MobilePhone}"/>
+                       <h3 class="general-design-undertext">Mobile</h3>
+                   </div>
+               </div>
+
+               <div class="row">
+                   <div class="column">
+                       <apex:inputField styleClass="general-design-input email-data emailpc-field" style="resize:none;" value="{!contact.Email}"/>
+                       <h3 class="general-design-undertext">Email Address</h3>
+                    <div class="errorMsg hidden-field emailpc-field-error"><strong>Error:</strong><p style="margin: 0 0 0 10px;"></p></div>
+                   </div>
+               </div>
+
+               <div class="row">
+                <div class="column">
+                    <apex:inputField styleClass="general-design-input" style="resize:none;" value="{!contact.MailingStreet}"/>
+                    <h3 class="general-design-undertext">Mailing Address (If Different)</h3>
+                </div>
+                <div class="column">
+                    <apex:inputField styleClass="general-design-input" value="{!contact.MailingCity}"/>
+                    <h3 class="general-design-undertext">City</h3>
+                </div>
+                <div class="column">
+                    <apex:inputField styleClass="general-design-input" value="{!contact.MailingState}"/>
+                    <h3 class="general-design-undertext">State</h3>
+                </div>
+                <div class="column">
+                    <apex:inputField styleClass="general-design-input" value="{!contact.MailingPostalCode}"/>
+                    <h3 class="general-design-undertext">Zip</h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <h3 class="paf-subline" style="height:30px;color:white;padding-left: 20px;padding-top: 5px;">Business Owners:</h3>
+            </div>
+            
+            <div class="row">
+                <div class="column" style="text-align:center;">
+                    <button type="button" 
+                            class="new-contact-button" 
+                            style="width:100px;height:50px;text-align:center;border-radius: 0;" 
+                            onclick="fnGenerateContactBO()">
+                            Add Business Owner
+                    </button>
+                </div>
+            </div>
+
+            <div class="row">
+                <table class="bo-style bussiness-owners-table" style="margin-bottom: 30px;">
+                    <tr>
+                        <th style="font-weight:bold;">First Name</th>
+                        <th style="font-weight:bold;">Last Name</th>
+                        <th style="font-weight:bold;">Ownership Percent</th>
+                        <th style="font-weight:bold;">Email</th>
+                        <th style="font-weight:bold;"></th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <apex:inputField styleClass="fnbo-field" value="{!contact1.FirstName}"/>
+                            <div class="errorMsg hidden-field fnbo-field-error"><strong>Error:</strong><p style="margin: 0 0 0 10px;font-size: 10.5px;"></p></div>
+                        </td>
+                        <td>
+                            <apex:inputField styleClass="lnbo-field" value="{!contact1.LastName}"/>
+                            <div class="errorMsg hidden-field lnbo-field-error"><strong>Error:</strong><p style="margin: 0 0 0 10px;font-size: 10.5px;"></p></div>
+                        </td>
+                        <td><apex:inputField styleClass="opbo-field" value="{!contact1.Units__c}"/></td>
+                        <td>
+                            <apex:inputField styleClass="email-data emailbo-field" value="{!contact1.Email}"/>
+                            <div class="errorMsg hidden-field emailbo-field-error"><strong>Error:</strong><p style="margin: 0 0 0 10px;font-size: 10.5px;"></p></div>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <!-- <tr>
+                        <td><apex:inputField styleClass="" value="{!contact2.FirstName}"/></td>
+                        <td><apex:inputField styleClass="" value="{!contact2.LastName}"/></td>
+                        <td><apex:inputField value="{!contact2.Ownership_Percentage__c}"/></td>
+                        <td><apex:inputField value="{!contact2.Email}"/></td>
+                    </tr>
+                    <tr>
+                        <td><apex:inputField styleClass="" value="{!contact3.FirstName}"/></td>
+                        <td><apex:inputField styleClass="" value="{!contact3.LastName}"/></td>
+                        <td><apex:inputField value="{!contact3.Ownership_Percentage__c}"/></td>
+                        <td><apex:inputField value="{!contact3.Email}"/></td>
+                    </tr>
+                    <tr>
+                        <td><apex:inputField styleClass="" value="{!contact4.FirstName}"/></td>
+                        <td><apex:inputField styleClass="" value="{!contact4.LastName}"/></td>
+                        <td><apex:inputField value="{!contact4.Ownership_Percentage__c}"/></td>
+                        <td><apex:inputField value="{!contact4.Email}"/></td>
+                    </tr> -->
+                </table>
+            </div>
+            
+            <div class="row">
+                <h3 class="paf-subline" style="height:30px;color:white;padding-left: 20px;padding-top: 5px;">
+                    Entity Risks Identified:
+                </h3>
+            </div>
+
+        <div class="row">
+            <div class="column">
+                <input type="checkbox" name="ERM" id="ERMCB" value="1"/>
+                    Enterprise Risk Managment
+            </div>
+            <div class="column">
+                <input type="checkbox" name="SP" id="SPCB" value="2"/>
+                Strategic Risk Alternative's Specialty Programs
+            </div>
+        </div>
+
+            
+
+            <div class="row ERIHiddenTitleSPCB">
+                <div class="column">
+                    <h3 style="text-align:center;text-decoration:underline;">Strategic Risk Alternative's Specialty Programs</h3>
+                </div>
+            </div>
+
+            <div class="row" id="SRMSP">
+                <div class="column" style="margin-left: 180px;margin-right: 180px;">
+                    <apex:inputField styleClass="general-design-input design-for-multiselect" value="{!contact.Broker_Type__c}"/>
+                </div>
+            </div>
+
+        <div class="row" id="SRMSP">
+            <div class="column">
+                <h3 class="general-design-undertext" style="margin-bottom: 17px;" >Dental Protection Plan</h3>
+                <h3 class="general-design-undertext" style="margin-bottom: 17px;" >Storage Assurance</h3>
+                <h3 class="general-design-undertext" style="margin-bottom: 17px;" >Strategic Auto</h3>
+                <h3 class="general-design-undertext" style="margin-bottom: 17px;" >Custom Warranty</h3>
+                <h3 class="general-design-undertext" style="margin-bottom: 17px;" >Tenant Assurance</h3>
+            </div>
+            <div class="column">
+                <input class="general-design-input valueSRMSP ERI-design-input"
+                       style="margin-left: 8px;"
+                       type="number"
+                       value="{!opportunity.Name}"
+                       onBlur="fnValidateSRMSP(this)"/>
+                <input class="general-design-input valueSRMSP ERI-design-input"
+                       type="number"
+                       value="{!opportunity.Name}"
+                       onBlur="fnValidateSRMSP(this)"/>
+                <input class="general-design-input valueSRMSP ERI-design-input"
+                       type="number"
+                       value="{!opportunity.Name}"
+                       onBlur="fnValidateSRMSP(this)"/>
+                <input class="general-design-input valueSRMSP ERI-design-input"
+                       type="number"
+                       value="{!opportunity.Name}"
+                       onBlur="fnValidateSRMSP(this)"/>
+                <input class="general-design-input valueSRMSP ERI-design-input"
+                       type="number"
+                       value="{!opportunity.Name}"
+                       onBlur="fnValidateSRMSP(this)"/>
+            </div>
+        </div> 
+
+
+            <!--    <div class="row">
+                <div class="column"><h3>Field Marketing Representative</h3></div>
+
+                <div class="column">
+                    <apex:inputField value="{!account.RecordType.Name}"/>
+                    <p>First Name</p>
+                    <apex:inputField value="{!account.RecordType.Name}"/>
+                    <p>Last Name</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="column"><h3>How many business owners for the company?*</h3></div>
+
+                <div class="column">
+                    <apex:selectRadio value="{!account.How_many_business_owners_for_the_company__c}">
+                        <apex:selectOptions value="{!businessowners}"></apex:selectOptions>
+                    </apex:selectRadio>
+                </div>
+            </div>
+
+        <div class="row">
+            <div class="column">
+                <h3>What are your major objectives for owning a reinsurance company?</h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column">
+                <h3>Limit Administrative Costs</h3>
+            </div>
+            <div class="column">
+                <apex:selectRadio value="{!opportunity.Limit_Administrative_Costs__c}">
+                    <apex:selectOptions value="{!lac}"></apex:selectOptions>
+                </apex:selectRadio>
+            </div>
+            <div class="column">
+                <h3>High Priority</h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column">
+                <h3>Transfer Risk</h3>
+            </div>
+            <div class="column">
+                <apex:selectRadio value="{!opportunity.Transfer_Risk__c}">
+                    <apex:selectOptions value="{!tr}"></apex:selectOptions>
+                </apex:selectRadio>
+            </div>
+            <div class="column">
+                <h3>High Priority</h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column">
+                <h3>Preserve Capital</h3>
+            </div>
+            <div class="column">
+                <apex:selectRadio value="{!opportunity.Preserve_Capital__c}">
+                    <apex:selectOptions value="{!pc}"></apex:selectOptions>
+                </apex:selectRadio>
+            </div>
+            <div class="column">
+                <h3>High Priority</h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column">
+                <h3>Manage Cash Flow</h3>
+            </div>
+            <div class="column">
+                <apex:selectRadio value="{!opportunity.Manage_Cash_Flow__c}">
+                    <apex:selectOptions value="{!mcf}"></apex:selectOptions>
+                </apex:selectRadio>
+            </div>
+            <div class="column">
+                <h3>High Priority</h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column">
+                <h3>Tax Efficiencies</h3>
+            </div>
+            <div class="column">
+                <apex:selectRadio value="{!opportunity.Tax_Efficiencies__c}">
+                    <apex:selectOptions value="{!te}"></apex:selectOptions>
+                </apex:selectRadio>
+            </div>
+            <div class="column">
+                <h3>High Priority</h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column">
+                <h3>Enterprise Risk Management</h3>
+            </div>
+            <div class="column">
+                <apex:selectRadio value="{!opportunity.Enterprise_Risk_Management__c}">
+                    <apex:selectOptions value="{!erm}"></apex:selectOptions>
+                </apex:selectRadio>
+            </div>
+            <div class="column">
+                <h3>High Priority</h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column">
+                <h3>Warranty Products and Services</h3>
+            </div>
+            <div class="column">
+                <apex:selectRadio value="{!opportunity.Warranty_Products__c}">
+                    <apex:selectOptions value="{!wps}"></apex:selectOptions>
+                </apex:selectRadio>
+            </div>
+            <div class="column">
+                <h3>High Priority</h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column"></div>
+            <div class="column">
+                <input type="email"/>
+                <button>Sign with Adobe Sign</button>
+            </div>
+            <div class="column"></div>
+        </div>
+
+        <div class="row">
+            <div class="column">
+                <input type="checkbox" required="required" /> I agree to terms and conditions*
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column" style="text-align:center;">
+                <canvas class="canvas-style" id="canvas" width="490" height="220"></canvas>
+                <button type="button" onclick="javascript:clearArea();return false;" class="clear-canvas">Clear</button>
+            </div>
+        </div> 
+
+        </div> -->
+
+        <div class="row" style="margin-top: 20px;">
+                    <div class="column" style="display: flex;">
+                            <p style="font-weight: bold;margin-right:20px;">Do you require fact finders for additional operating companies you wish to include?</p>
+                            
+                        <apex:selectRadio styleClass="require-fact-finders" value="{!opportunity.LeadSource}">
+                            <apex:selectOptions value="{!aoc}"></apex:selectOptions>
+                        </apex:selectRadio>
+                    </div>
+            </div>
+
+            <div class="row require-fact-finders-text">
+                <div class="column">
+                    <p style="font-weight: normal;margin:0px;">
+                        An SRA representative will provide you with additional fact finders as part of our welcome package.
+                    </p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="column" style="display: flex;">
+                        <p style="font-weight: bold;margin-right:20px;width: 400px;">How did you hear about us?</p>
+                        <apex:inputField value="{!opportunity.Where_are_we__c}"/>
+                </div>
+            </div>
+
+            <div class="row" style="margin-bottom:20px;">
+                    <div class="column">
+                        <h3 class="reinsurance-style" style="margin-top:0px;">
+                                By checking the boxes above and submitting this application you are acknowledging receipt and
+                                understanding of the provisions of the Insurance Management Agreement and agree to abide by all
+                                provisions set forth within it. Furthermore, you are acknowledging that you have reviewed the
+                                information provided above and ensure its accuracy and reliability.
+                        </h3>
+                    </div>
+                </div>
+
+        <div class="row">
+                <div class="column">
+                    <input type="text" class="general-design-input" name="name"/>
+                    <h3 class="general-design-undertext">Name</h3>
+                </div>
+                <div class="column">
+                    <input type="date" class="general-design-input date-submit-form" placeholder="MM-DD-YYYY" style="width:100%;" name="name"/>
+                    <h3 class="general-design-undertext">Date</h3>
+                </div>
+            </div>
+
+        <div style="width:100%;text-align:center;margin-top:50px;">
+            <button type="button" 
+                    class="submit-form-fake-button validate-form" 
+                    style="width:100px;height:40px;text-align:center;border-radius: 0;">
+                    SUBMIT
+            </button>
+            <apex:commandButton styleClass="submit-form-button"
+                                style="display:none;width:100px;height:40px;text-align:center;border-radius: 0;" 
+                                action="{!save}" 
+                                value="SUBMIT"/>
+                                <!-- onclick="appendContacts()" -->
+        </div>
+
+        </div>
+        
+        <!-- Action Functions-->
+        <apex:actionFunction action="{!changeStage}" name="changeStageJs" reRender="detailsLoan, test2" oncomplete="review();"/>
+        
+        <!-- <apex:pageBlock id="titleRerender"></apex:pageBlock>
+
+        <apex:actionFunction name="titleValues" action="{!getTitles}" reRender="titleRerender"/> -->
+
+    </apex:form>
+    <!-- MODAL TERMNS AND CONDITIONS -->
+    <div id="modal"> <!-- data-iziModal-fullscreen="true"  data-iziModal-title="Welcome"  data-iziModal-subtitle="Subtitle"  data-iziModal-icon="icon-home" -->
+        <h3>Terms of Insurance Management Agreement</h3>
+        <p style="font-weight:bold">I – Company Officer Acknowledgements</p>
+        <p>The officer agrees to provide information and/or documentation in a timely manner as may be
+                requested by Strategic Risk Alternatives (SRA) in furtherance of its duties as it pertains to the
+                Allied Reinsurance Company (ARC), related producing companies and related individuals. The
+                officer shall notify SRA of any material changes that may affect the financial viability of the
+                Allied Reinsurance Company, related producing companies and related individuals. The officer
+                shall provide SRA with all information it may reasonably request, including corporate
+                resolutions or other documentation SRA may deem necessary to determine the signatory
+                authority of the individual executing this agreement on behalf of an entity. The officer
+                represents and warrants that the information contained herein is true and accurate to the best
+                of the officer’s knowledge. The officer acknowledges that SRA cannot adequately perform its
+                services for the ARC unless the officer diligently performs its responsibilities under this
+                Agreement. SRA is expressly authorized to rely on and act upon any information obtained from
+                the officer, officer’s attorney, accountant or other professionals, in connection with this
+                Agreement.
+        </p>
+        <p style="font-weight:bold">II - Access to Funds</p>
+        <p>Shareholders may access the funds in any of the account(s) of the ARC for the following
+                conditions ONLY. An officer must sign on all withdrawals, loans, dividend declarations or
+                transfers. SRA will not be held liable for distributions made without prior written approval by
+                SRA.
+        </p>
+        <p>a) Claims and Cancellations: Authorized claims and cancellations supported by the
+                appropriate documentation of those items will be provided to the ARC upon
+                request.
+        </p>
+        <p>b) Taxes: Appropriate Federal, State, or Local Fees may be withdrawn and paid to
+                the appropriate authority.
+        </p>
+        <p>c) Company Management: This includes company administration, preparation of
+                Financial Statements and Tax Returns. Management fees of $4,000 will be
+                settled in January of each year.
+        </p>
+        <p>d) Charter Renewal: SRA will deduct $1,000 each year for the ARC’s Charter
+                Renewal.
+        </p>
+        <p>e) Loans: Shareholders may borrow funds from the ARC upon written approval by
+                SRA. Loan amounts must come from surplus reserves (earned premium), and
+                may not encumber reserve dollars that are at risk of claims.
+        </p>
+        <p>f) Dividends: Shareholders may declare dividends from the ARC at its discretion.
+                Dividends must be distributed equally across all shareholders equal to their
+                percentage of ownership. Dividends must be reported to SRA prior to being
+                taken.
+        </p>
+        <p style="font-weight:bold">III – Required Reserve Balance</p>
+        <p>ARC agrees to establish an account at the preferred financial institution of Strategic Risk
+                Alternatives and maintain a liquid reserve balance as defined within Cardinal Point Insurance’s
+                Investment Agreement.
+        </p>
+        <p style="font-weight:bold">IV – Risk Acknowledgement</p>
+        <p>SRA does not guarantee the future performance of the ARC, risk strategy or recommendation
+                related thereto. The officer understands the ARC strategy may be subject to various market,
+                economic, political and business risks.
+        </p>
+        <p style="font-weight:bold">V – Electronic Delivery</p>
+        <p>The officer has authorized SRA to distribute materials and information to the officer in an
+                electronic format to the email address provided in the Company Profile or otherwise provided
+                by the officer.
+        </p>
+        <p style="font-weight:bold">VI – Amendment/Assignment</p>
+        <p>The parties hereby agree that no amendment or assignment of this Agreement may be made
+                without written consent of each party; however, the foregoing shall not be construed to
+                prohibit assignment to a successor or subsidiary. Any notice under this Agreement shall be in
+                writing and sent to the party at the address of record unless the parties are notified otherwise.
+        </p>
+        <p style="font-weight:bold">VII – Termination</p>
+        <p>Any party may terminate the Agreement immediately upon written notice to the other parties
+                hereto, which shall be effective upon receipt by the other parties. Termination shall not affect
+                ARC’s obligation to pay fees through the effective date of termination. A termination fee of
+                $2,000 will be charged to ARC in consideration of final tax return, 1099-D issuance and closing
+                procedures.
+        </p>
+        <p style="font-weight:bold">VIII – Dispute Resolution</p>
+        <p>Any dispute arising out of this agreement shall be subject to final and binding arbitration
+                according to the Commercial Arbitration Rules of the American Arbitration Association then in
+                effect. Judgment upon any arbitration award may be entered in any court, state or federal,
+                having jurisdiction. The prevailing party in any arbitration and other legal proceeding under this
+                section will be entitled to recover reasonable attorney’s fees, costs and expenses.
+        </p>
+        <p style="font-weight:bold">II – Governing Law</p>
+        <p>The laws of the State of Idaho shall govern this agreement.
+        </p>
+        <p style="font-weight:bold">II – Severability/Waiver of Breach/Entire Agreement</p>
+        <p>If any provision of this Agreement shall be deemed unenforceable by statute, rule, regulation,
+                decision of a court of competent jurisdiction, or otherwise, the parties agree that such
+                provision shall be construed in a manner as to most nearly preserve its original intent while
+                maintaining its validity and/or enforceability. The invalidity of any part of this Agreement shall
+                not render invalid the remainder of this Agreement and, to that extent, the provision of this
+                Agreement shall be deemed to be severable.
+                
+        </p>
+        <p>The failure of any party to enforce its rights after breach by another shall not be construed as to
+                consent to the continuation of such breach, nor as a waiver of breach of any other provision of
+                this Agreement.
+        </p>
+        <p>The parties acknowledge that this Agreement represents the entire agreement among them
+                with respect to the Services and that it shall supersede any other agreement whether written,
+                oral, or otherwise with regard to the subject matter contained herein.
+                
+        </p>
+    </div>
+
+    
+    <!-- JQUERY -->
+    <script src="https://html5shim.googlecode.com/svn/trunk/html5.js">
+    </script>
+    <apex:includeScript value="https://code.jquery.com/jquery-3.3.1.min.js"/>
+    <!-- SWEET ALERT 2 -->
+    <apex:includeScript value="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"/>
+    <apex:includeScript value="https://unpkg.com/sweetalert2@7.12.10/dist/sweetalert2.all.js"/>
+    <!-- PARSLEY -->
+    <apex:includeScript value="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.8.1/parsley.min.js"/>
+    <!-- TIPPY JS -->
+    <apex:includeScript value="https://unpkg.com/popper.js@1/dist/umd/popper.min.js"/>
+    <apex:includeScript value="https://unpkg.com/tippy.js@4"/>
+    <!-- IZIMODAL -->
+    <apex:includeScript value="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.5.1/js/iziModal.min.js"/>
+    <!-- AJAX IN APEX -->
+    <apex:includeScript value="/soap/ajax/45.0/connection.js"/>
+    <apex:includeScript value="/soap/ajax/45.0/apex.js"/>
+    <script type="text/javascript" src="/soap/ajax/45.0/connection.js">
+    </script>
+    <script type="text/javascript" src="/soap/ajax/45.0/apex.js">
+	</script>
+    <!-- VALIDATE JS, NOT USED -->
+    <!-- <apex:includeScript value="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"/> -->
+
+    <script type="text/javascript">
+        console.log('Welcome');
+        $j = jQuery.noConflict();
+        var selectTitles='';
+		$j(document).ready(function(){
+            console.log('Welcome 2	');
+            selectTitles = fnGenerateSelectTitle();
+            fnChangueGELFY();
+            //SET DATE TO DATE INPUT
+            var now = new Date();
+            var day = ("0" + now.getDate()).slice(-2);
+            var month = ("0" + (now.getMonth() + 1)).slice(-2);
+            var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+            $j('.date-submit-form').val(today);
+            $j('.secretary-lastname-required').val();
+            $j('.shareholder-lastname-required').val();
+            fnAddClassToRequireFactFinders();
+            
+        });
+        
+        $j('.stage-name').change(function(){
+            console.log('Hi');
+            changeStageJs();
+        });
+        //TOOLTIPS
+        tippy('.tooltip-goodfaithdepositreceived',{
+            placement: 'right',
+            allowHTML:true,
+            maxWidth:550,
+            content: '<h4 style="font-weight: bold;">Good Faith Deposit Received</h4>' +
+                      '<p style="text-align: justify;font-size:12px">' +
+                        'When we have both Signed Letter of Intent and Good Faith Deposit, this is when the loan starts! This typically starts the 60-day process.' +
+                      '</p>'
+        });
+        
+        tippy('.tooltip-appraisalinspectiondate',{
+            placement: 'right',
+            allowHTML:true,
+            maxWidth:550,
+            content: '<h4 style="font-weight: bold;">Appraisal Inspection Date</h4>' +
+                      '<p style="text-align: justify;font-size:12px">' +
+                        'The date when the appraiser will be at the property!' +
+                      '</p>'
+        });
+        
+        tippy('.tooltip-appraisalduedate',{
+            placement: 'right',
+            allowHTML:true,
+            maxWidth:550,
+            content: '<h4 style="font-weight: bold;">Appraisal Due Date</h4>' +
+                      '<p style="text-align: justify;font-size:12px">' +
+                        'You will receive your results back from the appraiser on this date!' +
+                      '</p>'
+        });
+        
+        tippy('.tooltip-actualclosedate',{
+            placement: 'right',
+            allowHTML:true,
+            maxWidth:550,
+            content: '<h4 style="font-weight: bold;">Actual Close Date</h4>' +
+                      '<p style="text-align: justify;font-size:12px">' +
+                        'This is when Loan has closed and recorded!' +
+                      '</p>'
+        });
+        
+        tippy('.tooltip-prepaymentexpirationdate',{
+            placement: 'right',
+            allowHTML:true,
+            maxWidth:550,
+            content: '<h4 style="font-weight: bold;">Prepayment expiration date</h4>' +
+                      '<p style="text-align: justify;font-size:12px">' +
+                        'After this date you can refinance your property without penalty!' +
+                      '</p>'
+        });
+        
+        tippy('.tooltip-fixedperiodexpiration',{
+            placement: 'right',
+            allowHTML:true,
+            maxWidth:550,
+            content: '<h4 style="font-weight: bold;">Fixed Period Expiration</h4>' +
+                      '<p style="text-align: justify;font-size:12px">' +
+                        'This is when your loan becomes Adjustable' +
+                      '</p>'
+        });
+        
+        tippy('.tooltip-ballonpayment',{
+            placement: 'right',
+            allowHTML:true,
+            maxWidth:550,
+            content: '<h4 style="font-weight: bold;">Balloon Payment</h4>' +
+                      '<p style="text-align: justify;font-size:12px">' +
+                        'Your loan is due, and you need to refinance!' +
+                      '</p>'
+        });
+        
+        tippy('.tooltip-namechoice',{
+            placement: 'right',
+            allowHTML:true,
+            maxWidth:550,
+            content: '<h4 style="font-weight: bold;">Reinsurance Company Name Choices</h4>' +
+                      '<p style="text-align: justify;font-size:12px">' +
+                        'Submit at least two name choices for your reinsurance company. Choices should be as unique as possible.' +
+                      '</p>' +
+                      '<p style="text-align: justify;font-size:12px">' +
+                        'No company shall be registered by a name which:' +
+                      '</p>' +
+                      '<ul>' +
+                        '<li style="text-align:left;font-size:12px;">Is identical to an existing company</li>' +
+                        '<li style="text-align:left;font-size:12px">Contains the words “Chamber of Commerce”</li>' +
+                        '<li style="text-align:left;font-size:12px">Excludes the word “Incorporation” or “Inc.” to its name</li>' +
+                        '<li style="text-align:left;font-size:12px">' +
+                            'Contains the word(s) “Assurance:, “Bank”, “Building Society”, “Commonwealth”, “Co-Operative Society”, ' +
+                            '“Fidelity”, “Friendly Society”, “Guarantee”, “Indemnity”, “Insurance”, “Trust”, “Trustee”, or “Underwriter”; ' +
+                            'these names are considered to be undesirable or misleading' +
+                        '</li>' +
+                        '<li style="text-align:left;font-size:12px">Includes at its end, “Limited Life Company” or the abbreviation “LLC” as well as “Limited” or the abbreviation “Ltd.”; and/or</li>' +
+                        '<li style="text-align:left;font-size:12px">Contains any words offensive or in reference to the Modoc Tribe, Tribal Council, Chief or Native American Nation</li>' +
+                      '</ul>'
+        });
+
+        
+
+        //OPEN MODAL TERMNS
+        $j("#modal").iziModal();
+        $j(document).on('click', '.trigger', function (event) {
+            event.preventDefault();
+            $j('#modal').iziModal('open');
+        });
+        
+        function review(){
+        	console.log('Chasu');
+            console.log($j('.stage-name').val());
+            console.log('Hola');
+        }
+
+        //CHANGE TYPE OF TEXT FOR NUMBER 
+        //GROSS EARNINGS
+        function fnChangueGELFY(){
+            $j('.gelfy-style').attr('type','number');
+            $j('.opbo-field').attr('type','number');
+        }
+        //IMAGE PREVIEW
+        function readURL(input,container) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    container.attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        //IMAGE PREVIEW CUSTOM readURLSecretary
+        function readURLPresident(input){
+          var container = $j("#preview-image-license-president");
+          if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                container.attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+          }
+        }
+
+        function readURLSecretary(input){
+          var container = $j("#preview-image-license-secretary");
+          if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                container.attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+          }
+        }
+
+        $j("#upload-image-license-president").change(function() {
+            var container = $j("#preview-image-license-president");
+            readURL(this,container);
+        });
+ 
+        $j("#upload-image-license-secretary").change(function() {
+            var container = $j("#preview-image-license-secretary");
+            readURL(this,container);
+        });
+
+        //GENERATE FACT FINDER PAGES
+
+        $j('#generate-factfinder').click(function(){
+            var factFinderPages = $j('#factFinderPages').val();
+            console.log(factFinderPages);
+        });
+
+        //SHOW OR HIDE DIV
+        $j('#ERMCB').change(function(){
+            if($j(this).is(":checked")){
+                $j('.ERM').css('display','flex');
+                $j('.ERIHiddenTitleERMCB').css('display','flex');
+            }else{
+                $j('.ERM').css('display','none');
+                $j('.ERIHiddenTitleERMCB').css('display','none');
+                $j('.valueERM').val('');
+            }
+        });
+        $j('#SPCB').change(function(){
+            if($j(this).is(":checked")){
+                $j('#SRMSP').css('display','flex');
+                $j('.ERIHiddenTitleSPCB').css('display','flex');
+            }else{
+                $j('#SRMSP').css('display','none');
+                $j('.ERIHiddenTitleSPCB').css('display','none');
+                $j('.valueSRMSP').val('');
+            }
+        });
+
+        //VALIDATION ERM
+        function fnCountCoincidencesERM(compare){
+            var count = 0;
+            $j(".valueERM").each(function() {
+                if($j(this).val()== compare){
+                    count++;
+                }
+            });
+            return count;
+        }
+
+        function fnValidateERMCB(reference){
+            var value = reference.value;
+            if($j.isNumeric(value) && (value%1==0) && (value>=1 && value<=10) ){
+                var rpta = fnCountCoincidencesERM(value);
+                if(rpta > 1){
+                    reference.value='';
+                }
+            }else{
+                reference.value='';
+            }
+        }
+
+        //VALIDATION SRMSP
+
+        function fnCountCoincidencesSRMSP(compare){
+            var count = 0;
+            $j(".valueSRMSP").each(function() {
+                if($j(this).val()== compare){
+                    count++;
+                }
+            });
+            return count;
+        }
+
+        function fnValidateSRMSP(reference){
+            var value = reference.value;
+            if($j.isNumeric(value) && (value%1==0) && (value>=1 && value<=5) ){
+                var rpta = fnCountCoincidencesSRMSP(value);
+                if(rpta > 1){
+                    reference.value='';
+                }
+            }else{
+                reference.value='';
+            }
+        }
+
+        //GENERA HTML FOR NEW CONTACT ON IF
+        var counter = 0
+        
+    	function fnGenerateContactIF(){
+            var nameRB = 'name="'+'contactDinamic'+counter+'"';
+            var container = $j('.contact-container');
+        	var title = '<div class="row">' +
+                    '<div class="column" style="text-align:center;">' +
+                        '<h2 style="text-decoration: underline;">Board Member #1</h2>' +
+                    '</div>' +
+                '</div>';
+
+            var body = '<div class="row row-paf">' +
+                    '<div class="column column-text" style="flex: 40%;">' +
+                        '<h3 class="general-design-undertext" style="margin-bottom: 25px;">First Name:</h3>' +
+                        '<h3 class="general-design-undertext" style="margin-bottom: 25px;">Last Name:</h3>' +
+                        '<h3 class="general-design-undertext" style="margin-bottom: 25px;">Social Security #:</h3>' +
+                        '<h3 class="general-design-undertext" style="margin-bottom: 25px;">Email:</h3>' +
+                        '<h3 class="general-design-undertext" style="margin-bottom: 25px;">Title:</h3>' +
+                        '<h3 class="general-design-undertext" style="margin-bottom: 25px;">Are you a Shareholder?</h3>' +
+                        '<h3 class="general-design-undertext contactDinamicSharesText" style="margin-bottom: 25px;display:none;"># of Shares</h3>' +
+                    '</div>' + 
+            		'<div class="column newcontact-fields" style="flex: 90%;" data-ncfnumber="' + counter +'">' +
+                        '<input type="text"  style="margin-bottom: 10px !important;margin-left: 8px;" class="general-design-input fnnc-field-' + counter +'" name="Board_Member_1_Name__c[]" value=""/>' +
+                        '<div class="errorMsg hidden-field fnnc-field-' + counter +'-error"><strong>Error:</strong><p style="margin: 0 0 0 10px;font-size: 10.5px;"></p></div>' +                        
+                        '<input type="text" style="margin-bottom: 10px !important;margin-left: 8px;" class="general-design-input lnnc-field-' + counter +'" name="Board_Member_1_LastName__c[]" value=""/>' +
+                        '<div class="errorMsg hidden-field lnnc-field-' + counter +'-error"><strong>Error:</strong><p style="margin: 0 0 0 10px;font-size: 10.5px;"></p></div>' +
+                        '<input type="text" style="margin-bottom: 10px !important;margin-left: 8px;" class="general-design-input" name="Board_Member_1_SSN__c[]" value=""/>' +
+                        '<input type="email" style="margin-bottom: 10px !important;margin-left: 8px;width: 100%;height: 32px;" class="general-design-input emailnc-field-' + counter +'" name="Board_Member_1_Address__c[]" value=""/>' +
+                        '<div class="errorMsg hidden-field emailnc-field-' + counter +'-error"><strong>Error:</strong><p style="margin: 0 0 0 10px;font-size: 10.5px;"></p></div>' +
+                        selectTitles+
+                        '<div style="margin-top: 10px;">' +
+                          '<input type="radio" name="test" ${nameRB} class="contactDinamicYes" value="yes"> Yes' +
+                          '<input type="radio" name="test" ${nameRB} class="contactDinamicNo" value="no"> No' +
+                        '</div>' +
+                        '<div class="contactDinamicShares" style="display:none;margin-left: .5rem;margin-top: 20px;">' +
+                            '<input type="text" style="margin-bottom: 10px !important;margin-left: 8px;" class="general-design-input" name="Nro_Of_Shares__c[]" value=""/>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="column" style="flex: 1%;">' +
+                        '<button type="button" class="delete-contact-fields">X</button>' +
+                    '</div>' +
+                '</div>';
+                        //container.append(title);
+                counter++;
+            container.append(body);
+        }
+
+        //GENERATE NEW TR FOR BUSSINESS OWNERSTABLE
+        var counterBO = 0;
+        function fnGenerateContactBO(){
+            var nameRB = 'name="'+'contactBODinamic'+counterBO+'"';
+            var container = $j('.bussiness-owners-table tbody');
+            var row = '<tr>' +
+                        '<td data-ncbonumber="' + counterBO +'">' +
+                            '<input type="text" class="fnbo-field-' + counterBO +'" name="FirstNameBO[]" value=""/>' +
+                            '<div class="errorMsg hidden-field fnbo-field-' + counterBO +'-error"><strong>Error:</strong><p style="margin: 0 0 0 10px;font-size: 10.5px;"></p></div>' +
+                        '</td>' +
+                        '<td>' +
+                            '<input type="text" class="lnbo-field-' + counterBO +'" name="LastNameBO[]" value="" required/>' +
+                            '<div class="errorMsg hidden-field lnbo-field-' + counterBO +'-error"><strong>Error:</strong><p style="margin: 0 0 0 10px;font-size: 10.5px;"></p></div>' +
+                        '</td>' +
+                        '<td><input type="number" class="input-bo-currency" name="OwnershipPercentageBO[]" value=""/></td>' +
+                        '<td>' +
+                            '<input type="text" class="emailbo-field-' + counterBO +'" name="EmailBO[]" value=""/>' +
+                            '<div class="errorMsg hidden-field emailbo-field-' + counterBO +'-error"><strong>Error:</strong><p style="margin: 0 0 0 10px;font-size: 10.5px;"></p></div>' +
+                        '</td>' +
+                        '<td><button type="button" class="delete-contact-BO">X</button></td>' +
+                       '</tr>';
+            counterBO++;
+            container.append(row);
+        }
+    
+    	function fnCreateJSONContact(){            
+            var contacts = {
+                "Contact":[]
+            };
+            var fisrtName = [];
+            var lastName = [];
+            var SSN = [];
+            var email = [];
+            var title = [];
+            var nroShares = [];
+            
+            $j('input[name="Board_Member_1_Name__c[]"]').each(function(index) {fisrtName.push($j(this).val());});
+            $j('input[name="Board_Member_1_LastName__c[]"]').each(function(index) {lastName.push($j(this).val());});
+            $j('input[name="Board_Member_1_SSN__c[]"]').each(function(index) {SSN.push($j(this).val());});
+            $j('input[name="Board_Member_1_Address__c[]"]').each(function(index) {email.push($j(this).val());});
+            $j('.select-titles').each(function( index ) {title.push($j( this ).val())});
+            $j('input[name="Nro_Of_Shares__c[]"]').each(function(index) {nroShares.push($j(this).val());});
+            
+            var count = fisrtName.length;
+            
+            for(i = 0; i < count; ++i){
+                var contact = {
+                    AccountId : 0,
+                    FirstName:fisrtName[i],
+                    LastName:lastName[i],
+                    Social_Security_Number__c:SSN[i],
+                    Email:email[i],
+                    Title:title[i],
+                    Nro_Of_Shares__c:nroShares[i]
+                }
+                contacts["Contact"].push(contact);
+            }
+            
+			return contacts;     
+        }
+
+        function fnCreateJSONBussinessOwners(){            
+            var bussinessOwner = {"BussinessOwner":[]};
+            var FirstNameBO = [];
+            var LastNameBO = [];
+            var OwnershipPercentageBO = [];
+            var EmailBO = [];
+            
+            $j('input[name="FirstNameBO[]"]').each(function(index) {FirstNameBO.push($j(this).val());});
+            $j('input[name="LastNameBO[]"]').each(function(index) {LastNameBO.push($j(this).val());});
+            $j('input[name="OwnershipPercentageBO[]"]').each(function(index) {OwnershipPercentageBO.push($j(this).val());});
+            $j('input[name="EmailBO[]"]').each(function(index) {EmailBO.push($j(this).val());});
+            
+            var count = FirstNameBO.length;
+            
+            for(i = 0; i < count; ++i){
+                var contact = {
+                    FirstName:FirstNameBO[i],
+                    LastName:LastNameBO[i],
+                    Ownership_Percentage__c:OwnershipPercentageBO[i],
+                    Email:EmailBO[i],
+                }
+                bussinessOwner["BussinessOwner"].push(contact);
+            }
+            
+			return bussinessOwner;     
+        }
+    
+            // ADD EVENT TO DINAMIC RADIOBUTTON
+        $j(document).on("click", ".contactDinamicYes" , function() {
+            $j(this).parent().next().css( "display", "block" );
+            $j(this).parent().parent().parent().find('.column-text').find('.contactDinamicSharesText').css( "display", "block" );
+        });
+
+        $j(document).on("click", ".contactDinamicNo" , function() {
+            $j(this).parent().next().css( "display", "none" );
+            $j(this).parent().next().find('input').val('');
+            $j(this).parent().parent().parent().find('.column-text').find('.contactDinamicSharesText').css( "display", "none" );
+        });
+    
+    
+        /*EVENT TO DELETE DINAMIC CONTACT FIELDS*/
+        $j(document).on("click", ".delete-contact-fields" , function() {
+            $j(this).parent().parent().remove();
+        });
+        /*EVENT TO DELETE TR IN TABLE BUSSINESS OWNERS*/
+        $j(document).on("click", ".delete-contact-BO" , function() {
+            $j(this).parent().parent().remove();
+        });
+
+    /*EVENT RADIOBUTTON PRESIDENT*/
+		$j('.presidentYes').click(function(e){
+            
+			$j('.presidentShares').css('display','block');
+        });
+        
+        var ref = document.getElementById('presidentYes');
+        ref.addEventListener('click', function(e) {
+        	console.log('Hi');
+        });  
+        
+    	$j('.presidentNo').click(function(e){
+            $j('.presidentShares').find('input').val('');
+			$j('.presidentShares').css('display','none');
+        });
+    	$j('.secretaryYes').click(function(e){
+			$j('.secretaryShares').css('display','block');
+        });
+    	$j('.secretaryNo').click(function(e){
+            $j('.secretaryNo').find('input').val('');
+			$j('.secretaryShares').css('display','none');
+        });
+
+
+		/*-------------------------------*/
+		/*-------------------------------*/
+		/*-------------------------------*/
+		/*------SUBMIT AND VALIDATION----*/
+		/*-------------------------------*/
+		/*-------------------------------*/
+		/*-------------------------------*/
+
+        //EVENT SUBMIT 
+        $j('.validate-form').click(function(e){
+            // console.log(fnSumQuantityOfShares());
+            if(!fnValidateTermsAreChecked()){
+                fnShowMessage('ERROR','Please agree to the terms of service','error',false);
+            }else{
+                if(fnValidateRequiredFieldsInForm()>0){
+                    fnShowMessage('ERROR','Please review the errors','error',false);
+                }else{
+                    if(fnValidateEmailsFieldsInForm()>0){
+                        fnShowMessage('ERROR','Please review the errors','error',false);
+                    }else{
+                        if(fnValidateIfShareholderIsRequired()){
+                            fnShowMessage('ERROR','Please, it is necessary to have at least one shareholder','error',false);
+                        }else{
+                            if(fnSumQuantityOfShares()>5000){
+                                fnShowMessage('ERROR','You have exceeded the number of available shares. Maximum total of 5,000 issued shares to be split amongst shareholders','error',false);
+                            }else{
+                                var lastNameSH = $j('.shareholder-lastname-required').val();
+                                var lastNameSEC = $j('.secretary-lastname-required').val();
+                                if(lastNameSH==''){
+                                    $j('.shareholder-lastname-required').val('NOT SUPORTED');
+                                }
+                                if(lastNameSEC==''){
+                                    $j('.secretary-lastname-required').val('NOT SUPORTED');
+                                }
+                                var stringContacts = fnCreateJSONContact();
+                                var stringContacts = JSON.stringify(stringContacts);
+                                var stringBussinessOwners = fnCreateJSONBussinessOwners();
+                                var stringBussinessOwners = JSON.stringify(stringBussinessOwners);
+                                $j('.input-nc-string').val(stringContacts);
+                                $j('.input-bo-string').val(stringBussinessOwners);
+                                $j('.submit-form-button').click();
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        //SWEET ALERT 
+        function fnShowMessage(title,message,type,showCB){
+            swal({
+                title: title,
+                text: message,
+                type: type,
+                showCancelButton: showCB,
+                confirmButtonColor: '#c53535',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Okay'
+            });
+        }
+
+        // VALIDATE REQUIRED FIELDS
+        function fnValidateRequiredFieldsInForm(){
+            var countRF = fnVerifyRequiredFields();
+            var countRFNC = fnGetNewContactsInfo();
+            var countRFBO = fnGetNewBussinessOwnersInfo();
+            return (countRF+countRFNC+countRFBO);
+        }
+
+         // VALIDATE TERMS ARE CHECKED
+         function fnValidateTermsAreChecked(){
+            return $j('#scales').is(':checked');
+        }
+
+        //VALIDATION VERIFY REQUIRED FIELDS
+        function fnVerifyRequiredFields(){
+            var listInstance = [
+                $j('.firstchoice-field'),$j('.secondchoice-field'),$j('.fnpresident-field'),
+                $j('.lnpresident-field'),$j('.emailpresident-field'),$j('.lnb-field'),
+                $j('.fnpc-field'),$j('.lnpc-field'),$j('.emailpc-field'),
+                $j('.fnbo-field'),$j('.lnbo-field'),$j('.emailbo-field')
+            ];
+            var listClass = [ 
+                'firstchoice-field','secondchoice-field','fnpresident-field',
+                'lnpresident-field','emailpresident-field','lnb-field',
+                'fnpc-field','lnpc-field','emailpc-field',
+                'fnbo-field','lnbo-field','emailbo-field'
+            ];
+            var count = fnShowAllErrorMessages(listInstance,listClass,'You must enter a value');
+            return count;
+        }
+
+        function fnShowAllErrorMessages(listInstance,listClass,message){
+            var count = 0;
+            listInstance.forEach(function(element, i) {
+                var className = listClass[i]+'-error';
+                var instanceError = $j('.'+className);
+                var classNameText = listClass[i]+'-text';
+                var instanceText = $j('.'+classNameText);
+                if(element.val()==''){
+                    count++;
+                    fnShowMessageError(message,instanceError,instanceText);
+                }
+                if(element.val()!=''){
+                    fnHideMessageError(instanceError,instanceText);
+                }
+            });
+            return count;
+        }
+
+        function fnShowMessageError(message,instance,instanceText){
+            instance.find('p').text(message);
+            instance.attr('style','display:flex !important;');
+            instanceText.addClass('add-margin-bottom');
+        }
+
+        function fnHideMessageError(instance,instanceText){
+            instance.find('p').text('');
+            instance.attr('style','display:none !important;');
+            instanceText.removeClass('add-margin-bottom');
+        }
+
+        //VALIDATION REQUIRED DINAMIC FIELDS NEW CONTACT
+        function fnGetNewContactsInfo(){
+            var listInstance = [];
+            var listClass = [];
+            var count = 0;
+            if($j('.contact-container').children().length > 0){
+                $j('.newcontact-fields').each(function(index) {
+                    var number = $j(this).data('ncfnumber');
+                    var classFN = 'fnnc-field-'+number;
+                    var classLN = 'lnnc-field-'+number;
+                    var classEMAIL = 'emailnc-field-'+number;
+                    var instanceFN = $j('.'+classFN);
+                    var instanceLN = $j('.'+classLN);
+                    var instanceEMAIL = $j('.'+classEMAIL);
+                    listInstance.push(instanceFN);
+                    listInstance.push(instanceLN);
+                    listInstance.push(instanceEMAIL);
+                    listClass.push(classFN);
+                    listClass.push(classLN);
+                    listClass.push(classEMAIL);
+                });
+                var count = fnShowAllErrorMessages(listInstance,listClass,'You must enter a value');
+            }
+            return count;
+        }
+
+        //VALIDATION REQUIRED DINAMIC FIELDS NEW BUSSINESS OWNERS
+        function fnGetNewBussinessOwnersInfo(){
+            var listInstance = [];
+            var listClass = [];
+            var count = 0;
+            if($j('.bussiness-owners-table tbody tr').children().length > 1){
+                $j('.bussiness-owners-table tbody tr').each(function(index) {
+                    if(index > 1){
+                        var number = $j(this).find('> td:first-child').data('ncbonumber');
+                        var classFN = 'fnbo-field-'+number;
+                        var classLN = 'lnbo-field-'+number;
+                        var classEMAIL = 'emailbo-field-'+number;
+                        var instanceFN = $j('.'+classFN);
+                        var instanceLN = $j('.'+classLN);
+                        var instanceEMAIL = $j('.'+classEMAIL);
+                        listInstance.push(instanceFN);
+                        listInstance.push(instanceLN);
+                        listInstance.push(instanceEMAIL);
+                        listClass.push(classFN);
+                        listClass.push(classLN);
+                        listClass.push(classEMAIL);
+                    }
+                });
+                var count = fnShowAllErrorMessages(listInstance,listClass,'You must enter a value');
+            }
+            return count;
+        }
+
+
+        //VALIDATION SHAREHOLDER REQUIRED
+        function fnGetValidationMessage(){
+            var message = fnValidateIfShareholderIsRequired();
+            return message;
+        }
+
+        //VALIDATE FIELDS IN SHAREHOLDER REQUIERD 
+        //FINISHED AND TEST
+        function fnValidateIfShareholderIsRequired(){
+            var rptaPresident = fnValidateShareholderPresident();
+            console.log(rptaPresident);
+            var rptaSecretary = fnValidateShareholderSecretary();
+            console.log(rptaSecretary);
+            var rptaShareholder = fnValidateFieldsShareholder();
+            console.log(rptaShareholder);
+            var rptaDinamicContact = fnValidateShareholderDinamicContact();
+            console.log(rptaDinamicContact);
+            if( !rptaPresident &&  !rptaSecretary && !rptaShareholder && !rptaDinamicContact){
+                return true;
+            }
+            return false;
+        }
+
+        function fnValidateShareholderPresident(){
+            var cbPresidentYes = $j('.presidentYes').prop('checked');
+            var cbPresidentNo = $j('.presidentNo').prop('checked');
+            return cbPresidentYes;
+        }
+
+        function fnValidateShareholderSecretary(){
+            var cbSecretaryYes = $j('.secretaryYes').prop('checked');
+            var cbSecretaryNo = $j('.secretaryNo').prop('checked');
+            return cbSecretaryYes;
+        }
+
+        function fnValidateShareholderDinamicContact(){
+            var countShareholder = 0;
+            $j('.contactDinamicYes').each(function(){
+                if($j(this).is(':checked')){
+                    countShareholder++;
+                }
+            });
+            if(countShareholder>0){
+                return true;
+            }
+            return false;
+        }
+
+        function fnValidateFieldsShareholder(){
+            var firstName = $j('.shareholder-firstname-required').val();
+            var lastName = $j('.shareholder-lastname-required').val();
+            var email = $j('.shareholder-email-required').val();
+            if( firstName=='' && lastName=='' &&  email==''){
+                return false;
+            }
+            return true;
+        }
+        
+        //VALIDATE EMAIL INPUTS
+        function fnValidateEmailsFieldsInForm(){
+            var countRF = fnVerifyEmailFields();
+            var countRFNC = fnGetEmailContactsInfo();
+            var countRFBO = fnGetEmailBussinessOwnersInfo();
+            return (countRF+countRFNC+countRFBO);
+        }
+
+        function fnVerifyEmailFields(){
+            var listInstance = [
+                $j('.emailpresident-field'),$j('.emailpc-field'),$j('.emailbo-field')
+            ];
+            var listClass = [ 
+                'emailpresident-field','emailpc-field','emailbo-field'
+            ];
+            var count = fnShowAllErrorEmail(listInstance,listClass,'You have entered an invalid e-mail address. Please try again.');
+            return count;
+        }
+
+        function fnShowAllErrorEmail(listInstance,listClass,message){
+            var count = 0;
+            listInstance.forEach(function(element, i) {
+                var className = listClass[i]+'-error';
+                var instanceError = $j('.'+className);
+                var classNameText = listClass[i]+'-text';
+                var instanceText = $j('.'+classNameText);
+                if(!fnValidateEmail(element.val())){
+                    count++;
+                    fnShowMessageError(message,instanceError,instanceText);
+                }
+                if(fnValidateEmail(element.val())){
+                    fnHideMessageError(instanceError,instanceText);
+                }
+            });
+            return count;
+        }
+
+        function fnValidateEmail(email){
+            var filter = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
+            if(email!='' && filter.test(email)){
+                return true;
+            }
+            return false;
+        }
+
+
+        //VALIDATION REQUIRED DINAMIC FIELDS NEW CONTACT
+        function fnGetEmailContactsInfo(){
+            var listInstance = [];
+            var listClass = [];
+            var count = 0;
+            if($j('.contact-container').children().length > 0){
+                $j('.newcontact-fields').each(function(index) {
+                    var number = $j(this).data('ncfnumber');
+                    var classEMAIL = 'emailnc-field-'+number;
+                    var instanceEMAIL = $j('.'+classEMAIL);
+                    listInstance.push(instanceEMAIL);
+                    listClass.push(classEMAIL);
+                });
+                var count = fnShowAllErrorEmail(listInstance,listClass,'You have entered an invalid e-mail address. Please try again.');
+            }
+            return count;
+        }
+
+        //VALIDATION REQUIRED DINAMIC FIELDS NEW BUSSINESS OWNERS
+        function fnGetEmailBussinessOwnersInfo(){
+            var listInstance = [];
+            var listClass = [];
+            var count = 0;
+            if($j('.bussiness-owners-table tbody tr').children().length > 1){
+                $j('.bussiness-owners-table tbody tr').each(function(index) {
+                    if(index > 1){
+                        var number = $j(this).find('> td:first-child').data('ncbonumber');
+                        var classEMAIL = 'emailbo-field-'+number;
+                        var instanceEMAIL = $j('.'+classEMAIL);
+                        listInstance.push(instanceEMAIL);
+                        listClass.push(classEMAIL);
+                    }
+                });
+                var count = fnShowAllErrorEmail(listInstance,listClass,'You have entered an invalid e-mail address. Please try again.');
+            }
+            return count;
+        }
+
+
+        // NOT FINISHED
+        //VALIDATE FIELDS IN ALL CONTACTS 
+        function fnValidateContactsDuplicates(){
+            var data = fnGetDataAllContacts();
+            console.log(data);
+            // var message = fnGetDuplicatesValidationMessage(data);
+            // return message;
+        }
+
+        function fnGetDataAllContacts(){
+            var email=[];
+            $j('.email-data').each(function(index) {email.push($j(this).val());});
+            return email;
+        }
+
+        function fnVerifyValueInArray(compare,keyCompare,array){
+            var count = 0;
+            $.each( array, function( index, value ){
+                if(index!=keyCompare){
+                    if(compare==value){
+                        count++;
+                    }
+                }
+            });
+            return count;
+        }
+
+        function fnGetDuplicatesValidationMessage(array){
+            var message = '';
+            $.each(array, function( index, value ){
+                var count = fnVerifyValueInArray(value,index,array);
+                if(count>0){
+                    var messageAux = '${value} has ${count} duplicates <br/>';
+                    message+=messageAux;
+                }
+            });
+            return message;
+        }
+        //ADD CLASS TO INPUT RADIO INSIDE TABLE
+        function fnAddClassToRequireFactFinders(){
+            var rbYes = $j('.require-fact-finders tbody tr td input[value="Yes"]');
+            var rbNo = $j('.require-fact-finders tbody tr td input[value="No"]');
+            rbYes.addClass( "require-fact-finders-yes" );
+            rbNo.addClass( "require-fact-finders-no" );
+        }
+        $j(document).on('change', '.require-fact-finders-yes', function (event) {
+            $j('.require-fact-finders-text').css('display','block');
+        });
+        $j(document).on('change', '.require-fact-finders-no', function (event) {
+            $j('.require-fact-finders-text').css('display','none');
+        });
+
+        //FUNCTION TO SHOW DECIMALS IN CURRENCY FIELDS
+        $j('.gelfy-style').on('change, keyup', function() {
+            var currentInput = $j(this).val();
+            var fixedInput = currentInput.replace(/[A-Za-z!@#$%^&*()]/g, '');
+        });
+
+        function fnGetTitleValues(){
+            sforce.connection.sessionId = "{!$Api.Session_ID}";
+            var titles = sforce.apex.execute("VFPForWebsiteController", "getTitles", {});
+            var finalTitles = new Array();
+            for (let index = 0; index < titles.length; index++) {
+                if(titles[index]!='President' && titles[index]!='Secretary' && titles[index]!='Primary Contact' && titles[index]!='Bussiness Owner' ){
+                    finalTitles.push(titles[index]);
+                }
+            }
+            return finalTitles;
+        }
+
+        function fnGenerateSelectTitle(){
+            var titles = fnGetTitleValues();
+            var options = '<select style="margin-bottom: 10px !important;margin-left: 8px;width: 100%;" class="general-design-input select-titles" name="Title">';
+            for (let index = 0; index < titles.length; index++) {
+                var option = '<option value="'+ titles[index] +'">' + titles[index] +'</option>';
+                options+=option;
+            }
+            options+='</select>';
+            return options;
+        }
+
+        function fnSumQuantityOfShares(){
+            var sharesPresident = $j('.presidentShares > input').val();
+            sharesPresident = (sharesPresident==''?0:parseInt(sharesPresident));
+            var sharesSecretary = $j('.secretaryShares > input').val();
+            sharesSecretary = (sharesSecretary==''?0:parseInt(sharesSecretary));
+            var sharesShareholder = $j('.sharesShareholder').val();
+            sharesShareholder = (sharesShareholder==''?0:parseInt(sharesShareholder));
+            var totalShares = sharesPresident+sharesSecretary+sharesShareholder;
+            $j( ".contactDinamicShares > input" ).each(function( index ) {
+                totalShares += ($j( this ).val()==''?0:parseInt($j( this ).val()));
+            });
+            return totalShares;
+        }
+
+    </script>
+    
+</body>
+    </html>
+    
+</apex:page>

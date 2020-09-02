@@ -1,0 +1,70 @@
+<apex:page >
+    <html>
+        <head>
+            <style>
+            	label {
+                   cursor: pointer;
+                	background-color: blue;
+                	color: white;
+                	width: 200px;
+                	padding: 10px;
+                   /* Style as you please, it will become the visible UI component. */
+                }
+                
+                #upload-photo {
+                   opacity: 0;
+                   position: absolute;
+                   z-index: -1;
+                }
+            </style>
+        </head>
+        <body>
+            
+            <apex:form >
+                
+                
+                <apex:panelGroup >
+                <label for="upload-photo">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Browse...&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="file" name="photo" id="upload-photo"  onchange="readURL(this)"/>
+                
+                <div id="name">
+                    
+                </div>
+                </apex:panelGroup>
+            </apex:form>
+    
+        </body>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js">
+    </script>
+        <apex:includeScript value="https://code.jquery.com/jquery-3.3.1.min.js"/>
+    <!-- SWEET ALERT 2 -->
+    <apex:includeScript value="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"/>
+    <apex:includeScript value="https://unpkg.com/sweetalert2@7.12.10/dist/sweetalert2.all.js"/>
+    <!-- PARSLEY -->
+    <apex:includeScript value="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.8.1/parsley.min.js"/>
+    <!-- TIPPY JS -->
+    <apex:includeScript value="https://unpkg.com/popper.js@1/dist/umd/popper.min.js"/>
+    <apex:includeScript value="https://unpkg.com/tippy.js@4"/>
+    <!-- IZIMODAL -->
+    <apex:includeScript value="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.5.1/js/iziModal.min.js"/>
+    <!-- AJAX IN APEX -->
+    <apex:includeScript value="/soap/ajax/45.0/connection.js"/>
+    <apex:includeScript value="/soap/ajax/45.0/apex.js"/>
+    <script type="text/javascript" src="/soap/ajax/45.0/connection.js">
+    </script>
+    <script type="text/javascript" src="/soap/ajax/45.0/apex.js">
+	</script>
+    </html>
+
+	<!-- Call the sayHello JavaScript function using a script element-->
+    <script>
+    	window.setTimeout(sayHello,2000)
+        
+        function readURL(input){
+            console.log('Hi');
+            console.log(input.value);
+            document.getElementById("name").innerHTML = input.value;
+        }
+    </script>
+    
+</apex:page>

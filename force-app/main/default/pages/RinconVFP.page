@@ -1,0 +1,1310 @@
+<apex:page controller="RinconVFPController" lightningStylesheets="true" showHeader="false" sideBar="false" standardStylesheets="false" cache="true" 
+           docType="html-5.0">
+           <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <head>   
+            <meta charset="utf-8" />
+            <meta http-equiv="x-ua-compatible" content="ie=edge" />
+            <apex:stylesheet value="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.5.1/css/iziModal.min.css"/>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css"/>
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+            <apex:slds />
+            <script>
+                document.getElementsByTagName("Body")[0].classList.remove("slds-scope");       
+            </script>
+        </head> 
+        <style>   
+            /*STYLES FOR INPUT NUMBER*/
+            html{
+            font-family: 'HelveticaLight',Arial,sans-serif;
+            font-size: 11pt;
+            }
+            
+            body{background: white;width:/*900px*/90%;padding: 30px;margin: auto;margin-top: 50px;margin-bottom: 50px;box-shadow: 5px 6px 8px #888888; font-family: 'HelveticaLight',Arial,sans-serif;}
+            
+            .tooltip-general{
+            	background-color: white;
+            	border-radius: none;
+            border: none;
+            }
+            
+            .header, .title{
+            font-size: 14pt;
+            }
+            
+            .input-group-text {
+            border: none;
+            background:  white;
+            border-bottom: 1px solid black;
+            border-radius: 0;
+            }
+            
+            .form-control {
+            font-size: 12pt;
+            border: none !important;
+            border-bottom: 1px solid black !important;
+            border-radius: 0 !important;
+            }
+            
+            .btn.btn-light {
+            width: 30%;
+            border-radius: 25px;
+            border-color: black;
+            background: GhostWhite;
+            color: black;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 12pt;
+            }
+            
+            .btn.btn-primary {
+            	border-radius: 25px;
+            }
+            
+            
+            .wizard span {
+            background: #efefef;
+            display: inline-block;
+            margin-right: 5px;
+            min-width: 150px;
+            outline: none;
+            padding: 10px 40px 10px;
+            position: relative;
+            text-decoration: none;
+            }
+            .wizard.active span
+            {
+                background: #007ACC;
+                color: white;
+            }
+            
+            .wizard span:before {
+            width: 0;
+            height: 0;
+            border-top: 20px inset transparent;
+            border-bottom: 20px inset transparent;
+            border-left: 20px solid #fff;
+            position: absolute;
+            content: "";
+            top: 0;
+            left: 0;
+            }
+                        
+            .wizard span:after {
+            width: 0;
+            height: 0;
+            border-top: 20px inset transparent;
+            border-bottom: 20px inset transparent;
+            border-left: 20px solid #efefef;
+            position: absolute;
+            content: "";
+            top: 0;
+            right: -20px;
+            z-index: 2;
+            }
+            
+            .wizard.active span:after {
+            border-left: 20px solid #007ACC;
+            }
+            
+            .wizard span:first-child {
+            -webkit-border-radius: 8px 0 0 0px;
+            -moz-border-radius: 8px 0 0 0px;
+            border-radius: 0 0 0 0;
+            }
+            
+            .wizard span:last-child {
+            -webkit-border-radius: 0 8px 0px 0;
+            -moz-border-radius: 0 8px 0px 0;
+            border-radius: 0 0 00 0;
+            }
+            
+            .funop-link {
+            text-decoration: underline;
+            }
+            
+            /* CSS Document */
+            * {
+            margin: 0;
+            padding: 0;
+            outline: 0;
+            vertical-align: baseline;
+            }
+            
+            footer {
+            height: 50px;
+            background: #111;
+            }
+            
+            footer .footerBlock {
+            margin: 0 auto;
+            width: 960px;
+            position: relative;
+            color: #fff;
+            font-size: 12px;
+            line-height: 16px;
+            }
+            
+            footer .footerBlock p {
+            float: left;
+            margin-top: 18px;
+            }
+            
+            footer .footerBlock span {
+            float: right;
+            margin-top: 18px;
+            }
+            
+            footer .footerBlock a {
+            color: #fff;
+            }
+            
+            
+            ol, ul {
+            list-style: none;
+            }
+            
+            h1, h2, h3, h4, h5 {
+            font-weight: normal;
+            }
+            
+            blockquote, q {
+            quotes: none;
+            }
+            
+            blockquote:before, blockquote:after, q:before, q:after {
+            content: '';
+            content: none;
+            }
+            
+            :focus {
+            outline: 0;
+            }
+            
+            a img, fieldset, hr {
+            border: 0;
+            }
+            
+            a {
+            color: #00aeef;
+            }
+            
+            a:hover {
+            text-decoration: none;
+            }
+            
+            table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            }
+            
+            td {
+            vertical-align: top;
+            }
+            
+            input {
+            border: none;
+            }
+            
+            input[type="submit"] {
+            cursor: pointer;
+            }
+            
+            .clear {
+            height: 1px;
+            font-size: 1px;
+            line-height: 1px;
+            clear: both;
+            float: none;
+            }
+            
+            #wrapper {
+            min-height: 100%;
+            }
+            
+            * html #wrapper {
+            height: 100%;
+            }
+            
+            .pusher {
+            clear: both;
+            height: 50px;
+            }
+            
+            header, nav, section, article, aside, footer, hgroup, figcaption, figure {
+            display: block;
+            }
+            
+            header, footer {
+            float: left;
+            width: 100%;
+            }
+            
+            /*header {
+            background-image: url(https://rincon-group.com/wp-content/themes/rincon/images/header.png);        
+            }*/
+            
+            #logo {
+            text-align: center;
+            margin: 45px auto 0;
+            }
+            
+            #logo a {
+            display: inline-block;
+            text-align: center;
+            }
+            
+            #logo a img {
+            margin-left: 5px;
+            }
+            
+            #logo a img:hover {
+            opacity: 0.9;
+            -webkit-transition: all 0.3s ease;
+            -moz-transition: all 0.5s ease;
+            -o-transition: all 0.3s ease;
+            }
+            
+            #menu {
+            float: left;
+            width: 100%;
+            margin-top: 28px;
+            }
+            
+            #menu ul {
+            float: left;
+            }
+            
+            #menu ul li {
+            float: left;
+            }
+            
+            #menu ul li:last-child a {
+            padding-right: 0;
+            }
+            
+            #menu ul li a {
+            border-top: 1px solid #e1e1e1;
+            border-bottom: 1px solid #e1e1e1;
+            border-right: 1px solid #e1e1e1;
+            border-left: 1px solid #fff;
+            background: #ebebeb;
+            width: 158px;
+            float: left;
+            font-size: 14px;
+            height: 38px;
+            line-height: 40px;
+            text-transform: uppercase;
+            color: #707070;
+            text-align: center;
+            text-decoration: none;
+            /*font-family: 'ProximaNova';*/
+            }
+            
+            
+        </style>
+        <body>
+            
+            <apex:form style="padding-bottom:20px"  enctype="multipart/form-data" id="frm">
+                
+                <apex:pageMessages ></apex:pageMessages>
+                
+                
+                
+                <!-- <apex:inputHidden value="{!jsonContacts}" id="stringContat"/> -->
+                
+                <apex:panelGroup rendered="{!varsession.homePage}" id="page1">
+                    <div style="display:grid">
+                        <div data-rsssl="1" class="home" style="margin: 4px;" data-gr-c-s-loaded="true">
+                            <div id="wrapper">
+                                <div id="page">
+                                    <header>
+                                        <div style="float: right; padding-top: 20px; padding-right: 20px;">
+                                            <apex:commandLink action="{!logOut}" type="image/png">
+                                                <apex:image value="{!$Resource.LogOutIcon}"/>
+                                            </apex:commandLink>
+                                            <br/> <h4 style="text-align: center">Logout</h4>
+                                        </div>
+                                        
+                                        <div id="logo">
+                                            <a target="_blank" href="https://rincon-group.com/">
+                                                <img alt="" src="https://rincon-group.com/wp-content/themes/rincon/images/logo.png" />
+                                            </a>
+                                        </div>
+                                        
+                                        <nav id="menu" style="display:flex;">
+                                            <ul id="menu-menu" class="menu" style="margin-left: auto; margin-right: auto;">
+                                                <li id="menu-item-17" class="first  menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-2 current_page_item"><a target="_blank" href="https://rincon-group.com/">Home</a></li>
+                                                <li id="menu-item-16" class="menu-item menu-item-type-post_type menu-item-object-page"><a target="_blank" href="https://rincon-group.com/the-company/">The Company</a></li>
+                                                <li id="menu-item-15" class="menu-item menu-item-type-post_type menu-item-object-page"><a target="_blank" href="https://rincon-group.com/recently-closed/">Recently Closed</a></li>
+                                                <li id="menu-item-14" class="menu-item menu-item-type-post_type menu-item-object-page"><a target="_blank" href="https://rincon-group.com/apply-now/">Apply Now</a></li>
+                                                <li id="menu-item-56" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a target="_blank" href="https://rincon-group.com/category/blog/">Latest News</a></li>
+                                                <li id="menu-item-12" class="last  menu-item-type-post_type menu-item-object-page"><a target="_blank" href="https://rincon-group.com/contact-us/">Contact Us</a></li>
+                                            </ul>            
+                                        </nav>
+                                    </header>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-paf">
+                        
+                        
+                        <div class="row" style="min-height: 80px; border-top: 1px solid black; border-bottom: 1px solid black;">
+                            <div class="col-12" style="margin-top: auto;margin-bottom: auto;">
+                                <h2 class="title">Welcome to the Rincon Group client community portal!</h2>
+                            </div>
+                        </div>
+                        <div class="row" style="min-height: 100px">
+                            <div class="col-12" style="margin-top: auto;margin-bottom: auto;">
+                                <h2 class="title" style="margin-top: 20px;">HERE IS A LIST OF YOUR PROPERTIES</h2>
+                                <table class="table table-borderless" style="width: 100%;">
+                                    <thead>
+                                        <tr style="font-weight:bold;">
+                                            <th >PROPERTY ADDRESS</th>
+                                            <th >STATUS</th>
+                                            <th >INTEREST RATE</th>
+                                            <th >ACTIONS</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <apex:variable var="count" value="{!0}" />
+                                        <apex:variable var="total" value="{!0}" />
+                                        <apex:repeat value="{!opps}" var="opp">
+                                            <tr>
+                                                <td >
+                                                    <apex:commandLink action="{!redirectLoanPage}" value="{!opp.Name}" styleClass="funop-link"  style="{!IF(opp.Action_needed__c ,'color:grey;','')}" >
+                                                        <apex:param value="{!opp.Id}" name="oppId" assignTo="{!oppId}" />
+                                                    </apex:commandLink>
+                                                </td>
+                                                <td >{!opp.StageName}</td>
+                                                <td  class="number-td">
+                                                    <apex:outputText value="{0,number,###,##0.00}%">
+                                                        <apex:param value="{!opp.Interest_Rate__c}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                                <td >
+                                                    <apex:outputText rendered="{!!opp.Action_needed__c}">No actions</apex:outputText>
+                                                    <apex:commandLink action="{!redirectLoanPage}" rendered="{!opp.Action_needed__c}" value="Action Needed" styleClass="btn btn-danger">
+                                                        <apex:param value="{!opp.Id}" name="oppId" assignTo="{!oppId}" />
+                                                    </apex:commandLink>
+                                                </td>
+                                            </tr>
+                                        </apex:repeat>
+                                    </tbody>
+                                </table>
+                                
+                            </div>
+                        </div>
+                        
+                        <!--<div class="row">
+<div class="column" style="text-align:center;">
+<h2 style="margin-bottom: 0px;margin-top:20px;">Loan Status</h2>
+<apex:inputField styleClass="general-design-input stage-name" value="{!opportunity.StageName}"/>
+
+
+</div>
+</div>-->
+                    </div>
+                    <footer>
+                        
+                        <div class="row">
+                            <div class="col-8">
+                                <p style="color:white; margin-top:1em; margin-left:2em;">© The Rincon Group</p>                    
+                            </div>
+                            <div class="col-2">
+                                <span><a target="_blank" href="https://rincon-group.com/privacy-policy" style="color: white; text-decoration: underline; margin-top: 1em;  display:flex;">Privacy Policy</a></span>
+                            </div>
+                            <div class="col-2">
+                                <span><a href="https://www.linkedin.com/company/therincongroup" target="_blank"> <img style="width: 37px; height: 50px; object-fit: none; object-position: left;" src="https://rincon-group.com/wp-content/themes/rincon/images/socic.png" /></a></span>    
+                            </div>
+                        </div>
+                        
+                    </footer>
+                </apex:panelGroup>
+                <apex:panelGroup rendered="{!varsession.loanPage}" id="loanPage">
+                    <div style="display:grid">
+                        <div data-rsssl="1" class="home" style="margin: 4px;" data-gr-c-s-loaded="true">
+                            <div id="wrapper">
+                                <div id="page">
+                                    <header>
+                                        <div style="float: right; padding-top: 20px; padding-right: 20px;">
+                                            <apex:commandLink action="{!logOut}" type="image/png">
+                                                <apex:image value="{!$Resource.LogOutIcon}"/>
+                                            </apex:commandLink>
+                                            <br/> <h4 style="text-align: center">Logout</h4>
+                                        </div>
+                                        
+                                        <div id="logo">
+                                            <a target="_blank" href="https://rincon-group.com/">
+                                                <img alt="" src="https://rincon-group.com/wp-content/themes/rincon/images/logo.png" />
+                                            </a>
+                                        </div>
+                                        
+                                        <nav id="menu" style="display:flex;">
+                                            <ul id="menu-menu" class="menu" style="margin-left: auto; margin-right: auto;">
+                                                <li id="menu-item-17" class="first  menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-2 current_page_item"><a target="_blank" href="https://rincon-group.com/">Home</a></li>
+                                                <li id="menu-item-16" class="menu-item menu-item-type-post_type menu-item-object-page"><a target="_blank" href="https://rincon-group.com/the-company/">The Company</a></li>
+                                                <li id="menu-item-15" class="menu-item menu-item-type-post_type menu-item-object-page"><a target="_blank" href="https://rincon-group.com/recently-closed/">Recently Closed</a></li>
+                                                <li id="menu-item-14" class="menu-item menu-item-type-post_type menu-item-object-page"><a target="_blank" href="https://rincon-group.com/apply-now/">Apply Now</a></li>
+                                                <li id="menu-item-56" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a target="_blank" href="https://rincon-group.com/category/blog/">Latest News</a></li>
+                                                <li id="menu-item-12" class="last  menu-item-type-post_type menu-item-object-page"><a target="_blank" href="https://rincon-group.com/contact-us/">Contact Us</a></li>
+                                            </ul>            
+                                        </nav>
+                                    </header>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="border-top: 1px solid black; padding-top:10px">
+                        <div class="col-12" style="text-align: right;">
+                                <button type="button" class="mybtn btn btn-primary" onclick="remoteLocationPost();" >SECURELY UPLOAD FILES</button>
+                                <apex:inputFile id="fileId" value="{!contentfile.VersionData}" filename="{!contentfile.Title}" style="display:none" onchange="startUploadProcess(this)"/>
+                                <apex:commandButton id="btnsave" style="display:none;" action="{!Upload}" styleClass="btn btn-primary" value="Save File as Attachment" />
+                                
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12" style="padding-bottom: 10px" >
+                            <div class="title" style="text-align:left">LOAN STATUS</div>
+                        </div>
+                        <div class="col-12" style="padding-bottom: 10px"  >
+                            <!--<div class="panel-body">
+                                <apex:repeat value="{!optionsStage}" var="stg" >
+                                    <div class="containerPB tooltip-test wizard" onclick="stageClick(this);" html-key-val="{!stg.key}" data-tippy-content="{!stg.helpText}" style="float: left; display:flex;">
+                                        <apex:outputpanel rendered="{!if(auxStage<>stg.key, if(auxPercent>stg.prob,false,true),false)}" >
+                                            <apex:outputText value="{!stg.key}"/>    
+                                        </apex:outputpanel>
+                                    </div>
+                                    <div class="containerPB tooltip-test wizard active" onclick="stageClick(this);" html-key-val="{!stg.key}" data-tippy-content="{!stg.helpText}" style="float: left; display:flex;">
+                                    <apex:outputpanel rendered="{!if(auxStage==stg.key,true,false)}" >
+                                        <apex:outputText value="{!stg.key}"/>    
+                                    </apex:outputpanel>
+                                    <apex:outputpanel rendered="{!if(auxPercent>stg.prob,true,false)}" >
+                                        <apex:outputText value="{!stg.key}"/>    
+                                    </apex:outputpanel>
+                                    </div>
+                                </apex:repeat>
+                            </div>-->
+                            <h3>{!opportunity.Name}</h3>
+                            
+                            <div class="slds-scope"> 
+                                <div class="slds-path">
+                                    <div class="slds-grid slds-path__track">
+                                        <div class="slds-grid slds-path__scroller-container">
+                                            <div class="slds-path__scroller" role="application">
+                                            <div class="slds-path__scroller_inner">
+                                                <ul class="slds-path__nav" role="listbox" aria-orientation="horizontal">
+                                                    <apex:variable value="{!0}" var="index__optionsStage"/>
+                                                    <apex:repeat value="{!optionsStage}" var="stg" >
+                                                        <apex:variable var="index__optionsStage" value="{!index__optionsStage + 1}"/>
+                                                        <apex:variable var="tabindex" value="{! if(auxStage==stg.key,'0','-1') }"/>
+                                                        <apex:variable var="status" value="{! if(auxStage==stg.key,'active',if(auxPercent>stg.prob,'complete','incomplete')) }"/>
+                                                        <apex:variable var="selected" value="{! if(auxStage==stg.key,'true','false') }"/>
+                                                        <li class="slds-path__item slds-is-{!status} tooltip-test" role="presentation" html-key-val="{!stg.key}" data-tippy-content="{!stg.helpText}">
+                                                            <a aria-selected="{!selected}" class="slds-path__link" href="javascript:void(0);" id="path-{!FLOOR(index__optionsStage)}" role="option" tabindex="{!tabindex}">
+                                                              <span class="slds-path__stage">
+                                                                <svg class="slds-icon slds-icon_x-small" aria-hidden="true">
+                                                                  <use xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#check')}"></use>
+                                                                </svg>
+                                                                <span class="slds-assistive-text">Stage Complete</span>
+                                                              </span>
+                                                              <span class="slds-path__title">{!stg.key}</span>
+                                                            </a>
+                                                        </li>
+                                                    </apex:repeat>
+                                                </ul>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="col-12" style="padding-bottom: 10px; padding-left: 0" >
+                        <div class="col-6" style="padding-left: 0">
+                            <div class="title"><b>Projected Close Date:</b> <apex:outputText value="{0, date, MM'/'dd'/'yyyy}">
+                                <apex:param value="{!auxCloseDate}" />
+                            </apex:outputText></div>
+                            <!--<apex:input type="date" styleClass="general-design-input date-submit-form" style="width:40%;" value="{!auxCloseDate}"/>-->
+                
+                            <!-- puto required: required="true"-->                	
+                        </div>
+                    </div>
+                    
+                    <div class="row" style="padding: 10px 0;border-top: 1px solid black;">
+                        <div class="col-6">
+                            <div class="title"><b>WHERE WE ARE:</b></div>
+                            <apex:outputText value="{!opportunity.Where_are_we__c}" escape="false"/>
+                        </div>
+                        <div class="col-6">
+                            <div class="title"><b>FILES FOR YOU </b><small>(click each file to download)</small></div>
+                            <div class="row">
+                                <apex:repeat var="attachment" value="{!files}" >
+                                    <apex:variable var="url" value="{!links[attachment.ContentDocumentId]}" />
+                                    <apex:outputText rendered="{! if(url == '#',false,true) }">
+                                        <div class="col-6">
+                                            <a href="{!url}" target="_document">{!attachment.ContentDocument.title}</a>
+                                        </div>
+                                        <div class="col-6">
+                                            UPLOADED: <apex:outputText styleClass="display: inline-block;" value="{0, date, MM'/'dd'/'yyyy}">
+                                                <apex:param value="{!attachment.ContentDocument.CreatedDate}" />
+                                            </apex:outputText>
+                                        </div>
+                                    </apex:outputText>
+                                </apex:repeat>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!--<div class="row">
+                        <div class="column" style="text-align:center;">
+                        <h2 style="margin-bottom: 0px;margin-top:20px;">Nex t Step</h2>
+                        <apex:inputField styleClass="general-design-input secondchoice-field" 
+                        value="{!opportunity.NextStep}" style="width:65%;" />
+                        </div>
+                    </div>-->
+                  
+                    
+                    <div class="row" style="padding-top:10px; padding-bottom: 10px; border-top: 1px solid black;">
+                        <div class="col-12"><div class="title">
+                            IMPORTANT DETAILS ABOUT YOUR LOAN
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <apex:outputPanel id="detailsLoan">
+                        <div class="row" style="padding-bottom:10px">
+                            <div class="col-6">
+                                <apex:outputText rendered="{! NOT(ISBLANK(opportunity.Loan_Program__c))}">
+                                    <strong style="text-transform: capitalize;">Loan Program <button type="button" class="tooltip-general tooltip-ballonpayment" data-tippy-content=""><apex:image width="12px" style="padding-bottom: 5px;" url="{!$Resource.InfoIcon}"/></button>: </strong>
+                                    <apex:outputText styleClass="display: inline-block;" value="{0, date, MM'/'dd'/'yyyy}">
+                                        <apex:param value="{!IF(opportunity.Loan_Program__c == null, '', opportunity.Loan_Program__c)}" />
+                                    </apex:outputText> <br/>
+                                </apex:outputText>
+                                <apex:outputText rendered="{! NOT(ISBLANK(opportunity.Loan_Amount__c))}">
+                                    <strong style="text-transform: capitalize;">Loan Amount Requested: </strong>
+                                    <apex:outputText value="${0,number,###,##0.00}">
+                                        <apex:param value="{!IF(opportunity.Loan_Amount__c==null, 0, opportunity.Loan_Amount__c)}" />
+                                    </apex:outputText> <br/>
+                                </apex:outputText>
+                                <apex:outputText rendered="{! NOT(ISBLANK(opportunity.Interest_Rate__c))}">
+                                    <strong style="text-transform: capitalize;">Interest Rate: </strong>
+                                    <apex:outputText value="{0,number,###,##0.00}%">
+                                        <apex:param value="{!IF(opportunity.Interest_Rate__c==null, 0, opportunity.Interest_Rate__c)}" />
+                                    </apex:outputText> <br/>
+                                </apex:outputText>
+                                <apex:outputText rendered="{! NOT(ISBLANK(opportunity.Prepayment_expiration_date__c))}">
+                                    <strong style="text-transform: capitalize;">Prepayment Penalty Expiration Date <button type="button" class="tooltip-general tooltip-prepaymentexpirationdate" data-tippy-content=""><apex:image width="12px" style="padding-bottom: 5px;" url="{!$Resource.InfoIcon}"/></button>: </strong>                                    
+                                    <apex:outputText styleClass="display: inline-block;" value="{0, date, MM'/'dd'/'yyyy}">
+                                        <apex:param value="{!IF(opportunity.Prepayment_expiration_date__c == null, '', opportunity.Prepayment_expiration_date__c)}" />
+                                    </apex:outputText> <br/>
+                                </apex:outputText>
+                            </div>
+                            <div class="col-6">
+                                <apex:outputText rendered="{! NOT(ISBLANK(opportunity.Signed_Letter_of_Intent__c))}">
+                                    <strong>Signed Letter of Intent: </strong>
+                                    <apex:outputText styleClass="display: inline-block;" value="{0, date, MM'/'dd'/'yyyy}">
+                                        <apex:param value="{!IF(opportunity.Signed_Letter_of_Intent__c == null, '', opportunity.Signed_Letter_of_Intent__c)}" />
+                                    </apex:outputText><br/>
+                                </apex:outputText>
+                                <apex:outputText rendered="{! NOT(ISBLANK(opportunity.Good_Faith_Deposit_Received__c))}">
+                                    <strong style="text-transform: capitalize;">Good Faith Deposit Received <button type="button" class="tooltip-general tooltip-goodfaithdepositreceived" data-tippy-content=""><apex:image width="12px" style="padding-bottom: 5px;" url="{!$Resource.InfoIcon}"/></button>: </strong>    
+                                    <apex:outputText styleClass="display: inline-block;" value="{0, date, MM'/'dd'/'yyyy}">
+                                        <apex:param value="{!IF(opportunity.Good_Faith_Deposit_Received__c == null, '', opportunity.Good_Faith_Deposit_Received__c)}" />
+                                    </apex:outputText> <br/>
+                                </apex:outputText>
+                                <apex:outputText rendered="{! NOT(ISBLANK(opportunity.Appraisal_Inspection_Date__c))}">
+                                    <strong style="text-transform: capitalize;">Appraisal Inspection Date <button type="button" class="tooltip-general tooltip-appraisalinspectiondate" data-tippy-content=""><apex:image width="12px" style="padding-bottom: 5px;" url="{!$Resource.InfoIcon}"/></button>: </strong>
+                                    <apex:outputText styleClass="display: inline-block;" value="{0, date, MM'/'dd'/'yyyy}">
+                                        <apex:param value="{!IF(opportunity.Appraisal_Inspection_Date__c == null, '', opportunity.Appraisal_Inspection_Date__c)}" />
+                                    </apex:outputText> <br/>
+                                </apex:outputText>
+                                <apex:outputText rendered="{! NOT(ISBLANK(opportunity.Appraisal_Due_Date__c))}">
+                                    <strong style="text-transform: capitalize;">Appraisal Due Date <button type="button" class="tooltip-general tooltip-appraisalduedate" data-tippy-content=""><apex:image width="12px" style="padding-bottom: 5px;" url="{!$Resource.InfoIcon}"/></button>: </strong>    
+                                    <apex:outputText styleClass="display: inline-block;" value="{0, date, MM'/'dd'/'yyyy}">
+                                        <apex:param value="{!IF(opportunity.Appraisal_Due_Date__c == null, '', opportunity.Appraisal_Due_Date__c)}" />
+                                    </apex:outputText> <br/>
+                                </apex:outputText>
+                                <apex:outputText rendered="{! NOT(ISBLANK(opportunity.Actual_Close_Date__c))}">
+                                    <strong style="text-transform: capitalize;">Actual Close Date <button type="button" class="tooltip-general tooltip-actualclosedate" data-tippy-content=""><apex:image width="12px" style="padding-bottom: 5px;" url="{!$Resource.InfoIcon}"/></button>: </strong>    
+                                    <apex:outputText styleClass="display: inline-block;" value="{0, date, MM'/'dd'/'yyyy}">
+                                        <apex:param value="{!IF(opportunity.Actual_Close_Date__c == null, '', opportunity.Actual_Close_Date__c)}" />
+                                    </apex:outputText> <br/>
+                                </apex:outputText>
+                                <apex:outputText rendered="{! NOT(ISBLANK(opportunity.Fixed_Period_Expiration__c))}">
+                                    <strong style="text-transform: capitalize;">Fixed Period Expiration <button type="button" class="tooltip-general tooltip-fixedperiodexpiration" data-tippy-content=""><apex:image width="12px" style="padding-bottom: 5px;" url="{!$Resource.InfoIcon}"/></button>: </strong>    
+                                    <apex:outputText styleClass="display: inline-block;" value="{0, date, MM'/'dd'/'yyyy}">
+                                        <apex:param value="{!IF(opportunity.Fixed_Period_Expiration__c == null, '', opportunity.Fixed_Period_Expiration__c)}" />
+                                    </apex:outputText> <br/>
+                                </apex:outputText>
+                                <apex:outputText rendered="{! NOT(ISBLANK(opportunity.Balloon_Payment__c))}">
+                                    <strong style="text-transform: capitalize;">Balloon Payment <button type="button" class="tooltip-general tooltip-ballonpayment" data-tippy-content=""><apex:image width="12px" style="padding-bottom: 5px;" url="{!$Resource.InfoIcon}"/></button>: </strong>    
+                                    <apex:outputText styleClass="display: inline-block;" value="{0, date, MM'/'dd'/'yyyy}">
+                                        <apex:param value="{!IF(opportunity.Balloon_Payment__c == null, '', opportunity.Balloon_Payment__c)}" />
+                                    </apex:outputText> <br/>
+                                </apex:outputText>
+                                <apex:outputText rendered="{! NOT(ISBLANK(opportunity.Prepayment_Penalty__c))}">
+                                    <strong style="text-transform: capitalize;">Prepayment Penalty <button type="button" class="tooltip-general tooltip-ballonpayment" data-tippy-content=""><apex:image width="12px" style="padding-bottom: 5px;" url="{!$Resource.InfoIcon}"/></button>: </strong>    
+                                    <apex:outputText styleClass="display: inline-block;" value="{0, date, MM'/'dd'/'yyyy}">
+                                        <apex:param value="{!IF(opportunity.Prepayment_Penalty__c == null, '', opportunity.Prepayment_Penalty__c)}" />
+                                    </apex:outputText> <br/>
+                                </apex:outputText>
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top:10px; padding-bottom:10px;border-top: 1px solid black;">
+                            <div class="col-12" >
+                                <div class="title" style="text-align:left">ALL YOUR LOANS</div>
+                            </div>
+                            <div class="col-12" >
+                        <table class="table table-striped" style="width: 100%; padding-top:10px">
+                            <thead>
+                                <tr style="font-weight:bold;">
+                                    <th>Property Address</th>
+                                    <th >Interest Rate</th>
+                                    <th >Loan Amount</th>
+                                    <th >Prepayment Expiration Date</th>
+                                    <th >Fixed Period Expiration</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <apex:variable var="count" value="{!0}" />
+                                <apex:variable var="total" value="{!0}" />
+                                <apex:repeat value="{!opps}" var="opp">
+                                    <tr>
+                                        <td>
+                                        <apex:commandLink action="{!redirectLoanPage}" value="{!opp.Name}" styleClass="funop-link" >
+                                            <apex:param value="{!opp.Id}" name="oppId" assignTo="{!oppId}" />
+                                        </apex:commandLink>
+                                        </td>
+                                        <td  class="number-td">
+                                            <apex:outputText value="{0,number,###,##0.00}%">
+                                                <apex:param value="{!opp.Interest_Rate__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td class="number-td">
+                                            <apex:outputText value="${0,number,###,##0.00}">
+                                                <apex:param value="{!opp.Loan_Amount__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                        <td >
+                                            <apex:outputText value="{0, date, MM'/'dd'/'yyyy}">
+                                                <apex:param value="{!opp.Prepayment_expiration_date__c}" />
+                                            </apex:outputText>
+                                        </td>
+                                        <td >
+                                            <apex:outputText value="{0, date, MM'/'dd'/'yyyy}">
+                                                <apex:param value="{!opp.Fixed_Period_Expiration__c}" />
+                                            </apex:outputText>
+                                        </td>
+                                    </tr>
+                                <apex:variable var="count" value="{!count + 1}" />
+                                <apex:variable var="total" value="{!total + IF(opp.Loan_Amount__c <> null, opp.Loan_Amount__c, 0)}" />
+                                </apex:repeat>
+                            </tbody>
+                            <tfooter>
+                                <tr style="font-weight:bold;">
+                                    <td colspan="2">{!count} record(s)</td>
+                                    <td class="number-td">
+                                        <apex:outputText value="${0,number,###,##0.00}">
+                                            <apex:param value="{!total}"/>
+                                        </apex:outputText>
+                                    </td>
+                                    <td colspan="2"></td>
+                                </tr>
+                            </tfooter>
+                                </table>
+                            </div>
+                        </div>
+                    </apex:outputPanel>            
+                    
+                    <!--<div class="row">
+<div class="column">
+<apex:inputField styleClass="general-design-input" style="resize:none;" value="{!contact.Phone}"/>
+<h3 class="general-design-undertext">Phone Number: Work</h3>
+</div>
+<div class="column">
+<apex:inputField styleClass="general-design-input" value="{!contact.MobilePhone}"/>
+<h3 class="general-design-undertext">Mobile</h3>
+</div>
+</div>-->
+                    
+                    <div class="row">
+                        <h3 class="paf-subline" style="height:30px;color:white;padding-left: 20px;padding-top: 5px;">All Loans:</h3>
+                    </div>
+                    
+                    
+                    
+                    <!--<apex:outputPanel id="test3" >
+<div class="row" >
+<div class="column" style="text-align:right;">
+<h2 style="text-decoration: underline;margin-bottom: 0px;margin-top:20px;">Name Choice</h2>
+</div>
+<div class="column" style="text-align:left;margin-top: 17px;">
+<button type="button" class="tooltip-namechoice" data-tippy-content="">?</button>
+</div>
+</div>
+</apex:outputPanel>-->
+                    
+                    <div style="width:100%;text-align:center;margin-top:50px;">
+                        <!--<button type="button" 
+class="submit-form-fake-button validate-form" 
+style="width:100px;height:40px;text-align:center;border-radius: 0;">
+SUBMIT
+</button>
+<apex:commandButton styleClass="submit-form-button"
+style="width:100px;height:40px;text-align:center;border-radius: 0;" 
+action="{!save}" 
+value="SUBMIT"/>-->
+                        <!-- onclick="appendContacts()" -->
+                        <footer>
+                            
+                            <div class="row">
+                                <div class="col-8">
+                                    <p style="color:white; margin-top:1em; margin-left:2em;">© The Rincon Group</p>                    
+                                </div>
+                                <div class="col-2">
+                                    <span><a target="_blank" href="https://rincon-group.com/privacy-policy" style="color: white; text-decoration: underline; margin-top: 1em;  display:flex;">Privacy Policy</a></span>
+                                </div>
+                                <div class="col-2">
+                                    <span><a href="https://www.linkedin.com/company/therincongroup" target="_blank"> <img style="width: 37px; height: 50px; object-fit: none; object-position: left;" src="https://rincon-group.com/wp-content/themes/rincon/images/socic.png" /></a></span>    
+                                </div>
+                            </div>
+                            
+                        </footer>
+                    </div>
+                    
+                </apex:panelGroup>
+                
+                <div>
+                    <apex:panelGroup rendered="{!varsession.loginPage}" id="login">    
+                        <div class="row">
+                            <!--<div class="column header-left"></div>
+                            <div class="column header-right">
+                            <p class="header-text-right" style="margin-left:160px;"></p>
+                            <p class="header-text-right" style="color:red;"></p>
+                            </div>
+                            -->
+                            <!-- Image logo Strategic Risk -->
+                            <div class="col-6" style="text-align:center;">
+                                <apex:image value="{!$Resource.LoginBG}" style="width: 100%; height: 100%" /> 
+                            </div>
+                            <div class="col-6" style="text-align:center; padding-top:30px">
+                                <h1 class="header" style="color: darkgray;">
+                                    POWERED BY
+                                </h1>
+                                <apex:image value="{!$Resource.LogoRinconLogin}" styleClass="login-logo" style="width:60%; margin-bottom: 20px" /> 
+                                <div style="width:50%; margin: auto">
+                                    <div style="padding-bottom: 1rem">
+                                        Login to access your account
+                                    </div>
+                                    <div class="form-group" style="text-align:center">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                                            </div>
+                                            <apex:input styleClass="form-control" value="{!varsession.username}" html-placeholder="Username" />
+                                        </div> 
+                                    </div> 
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend"> 
+                                                <span class="input-group-text"> <i class="fa fa-lock text-muted"></i></span>                 		
+                                            </div>
+                                            <apex:inputsecret styleClass="form-control bg-white border-left-0 border-md" value="{!varsession.password}" html-placeholder="Password"/>
+                                        </div>
+                                    </div>
+                                    
+                                    <apex:commandButton styleClass="btn btn-light" action="{!redirectOpp}" value="Log in"> </apex:commandButton>
+                                    
+                                    <div style="padding-top: 1rem">
+                                        <apex:commandLink style="text-decoration:none; color: black" action="{!redirectForgotUOP}" value="Forgot username or password?" styleClass="funop-link" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </apex:panelGroup>
+                    <apex:panelGroup rendered="{!varsession.forgotUOP}" id="forgotUOP">    
+                        <div class="row">
+                            <!--<div class="column header-left"></div>
+<div class="column header-right">
+<p class="header-text-right" style="margin-left:160px;"></p>
+<p class="header-text-right" style="color:red;"></p>
+</div>
+-->
+                            <!-- Image logo Strategic Risk -->
+                            <div class="col-6" style="text-align:center;">
+                                <apex:image value="{!$Resource.LoginBG}" style="width: 100%; height: 100%" /> 
+                            </div>
+                            <div class="col-6" style="text-align:center; padding-top:30px">
+                                <h1 class="header" style="color: darkgray;">
+                                    POWERED BY
+                                </h1>
+                                <apex:image value="{!$Resource.LogoRinconLogin}" styleClass="login-logo" style="width:60%; margin-bottom: 20px" /> 
+                                <div style="width:50%; margin: auto">
+                                    <div style="padding-bottom: 1rem">
+                                        Please enter your name, email and phone and someone from Rincon Group will get back to you
+                                    </div>
+                                    <div class="form-group" style="text-align:center">
+                                        <div class="input-group">
+                                            <apex:input styleClass="form-control" value="{!varsession.name}" html-placeholder="Name" />
+                                        </div> 
+                                    </div> 
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <apex:input styleClass="form-control" value="{!varsession.email}" html-placeholder="Email" />
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <apex:input styleClass="form-control" value="{!varsession.phone}" html-placeholder="Phone" />
+                                        </div>
+                                    </div>
+                                    
+                                    <apex:commandButton styleClass="btn btn-light" action="{!sendRecoveryEmail}" value="Send"> </apex:commandButton>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </apex:panelGroup>
+                </div>
+                
+                
+                <div>
+                    <apex:panelGroup rendered="{!varsession.showEmpty}" id="page3">                
+                        <div class="container-paf">
+                            
+                            <!--<div class="row">
+<div class="column">
+<h2>Rincon Form</h2>
+<div class="paf-subline"></div>
+</div>
+</div>-->
+                            
+                            <div class="row">
+                                <div class="column" style="text-align:center;">
+                                    {!varsession.message}
+                                </div>
+                            </div>
+                        </div>
+                    </apex:panelGroup>
+                </div>
+                
+                
+                
+                
+                <!-- Action Functions
+<apex:actionFunction action="{!changeStage}" name="changeStageJs" reRender="detailsLoan, test2" oncomplete="review();"/>-->
+                <apex:actionFunction action="{!changeStage}" name="changeStageJs" reRender="detailsLoan, test3" oncomplete="loadTippys();"/>
+                
+                <!--<apex:actionFunction name="passToController" action="{!doAttachment}" reRender="attcs, attcs2" oncomplete="clearInputFile();">
+                    <apex:param name="fname" value="" assignTo="{!filename}" />
+                    <apex:param name="fBody" value="" assignTo="{!body}" />
+                </apex:actionFunction>
+            -->
+                <apex:actionFunction name="passToLogin" action="{!redirectOpp}" reRender="page1, page2, page3" oncomplete="verifyLogin();"/>
+                <!-- <apex:pageBlock id="titleRerender"></apex:pageBlock>
+
+<apex:actionFunction name="titleValues" action="{!getTitles}" reRender="titleRerender"/> -->
+                
+                
+                
+            </apex:form>
+            
+            <!-- MODAL TERMNS AND CONDITIONS -->
+            <div id="modal" style="display: none;"> <!-- data-iziModal-fullscreen="true"  data-iziModal-title="Welcome"  data-iziModal-subtitle="Subtitle"  data-iziModal-icon="icon-home" -->
+                <h3>Terms of Insurance Management Agreement</h3>
+                <p style="font-weight:bold">I – Company Officer Acknowledgements</p>
+                <p>The officer agrees to provide information and/or documentation in a timely manner as may be
+                    Agreement.
+                </p>
+                <p style="font-weight:bold">II - Access to Funds</p>
+                <p>Shareholders may access the funds in any of the account(s) of the ARC for the following
+                    conditions ONLY. An officer must sign on all withdrawals, loans, dividend declarations or
+                    transfers. SRA will not be held liable for distributions made without prior written approval by
+                    SRA.
+                </p>
+                <p>a) Claims and Cancellations: Authorized claims and cancellations supported by the
+                    appropriate documentation of those items will be provided to the ARC upon
+                    request.
+                </p>
+                <p>b) Taxes: Appropriate Federal, State, or Local Fees may be withdrawn and paid to
+                    the appropriate authority.
+                </p>
+                <p>c) Company Management: This includes company administration, preparation of
+                    Financial Statements and Tax Returns. Management fees of $4,000 will be
+                    settled in January of each year.
+                </p>
+                <p>d) Charter Renewal: SRA will deduct $1,000 each year for the ARC’s Charter
+                    Renewal.
+                </p>
+                <p>e) Loans: Shareholders may borrow funds from the ARC upon written approval by
+                    SRA. Loan amounts must come from surplus reserves (earned premium), and
+                    may not encumber reserve dollars that are at risk of claims.
+                </p>
+                <p>f) Dividends: Shareholders may declare dividends from the ARC at its discretion.
+                    Dividends must be distributed equally across all shareholders equal to their
+                    percentage of ownership. Dividends must be reported to SRA prior to being
+                    taken.
+                </p>
+                <p style="font-weight:bold">III – Required Reserve Balance</p>
+                <p>ARC agrees to establish an account at the preferred financial institution of Strategic Risk
+                    Alternatives and maintain a liquid reserve balance as defined within Cardinal Point Insurance’s
+                    Investment Agreement.
+                </p>
+                <p style="font-weight:bold">IV – Risk Acknowledgement</p>
+                <p>SRA does not guarantee the future performance of the ARC, risk strategy or recommendation
+                    related thereto. The officer understands the ARC strategy may be subject to various market,
+                    economic, political and business risks.
+                </p>
+                <p style="font-weight:bold">V – Electronic Delivery</p>
+                <p>The officer has authorized SRA to distribute materials and information to the officer in an
+                    electronic format to the email address provided in the Company Profile or otherwise provided
+                    by the officer.
+                </p>
+                <p style="font-weight:bold">VI – Amendment/Assignment</p>
+                <p>The parties hereby agree that no amendment or assignment of this Agreement may be made
+                    without written consent of each party; however, the foregoing shall not be construed to
+                    prohibit assignment to a successor or subsidiary. Any notice under this Agreement shall be in
+                    writing and sent to the party at the address of record unless the parties are notified otherwise.
+                </p>
+                <p style="font-weight:bold">VII – Termination</p>
+                <p>Any party may terminate the Agreement immediately upon written notice to the other parties
+                    hereto, which shall be effective upon receipt by the other parties. Termination shall not affect
+                    ARC’s obligation to pay fees through the effective date of termination. A termination fee of
+                    $2,000 will be charged to ARC in consideration of final tax return, 1099-D issuance and closing
+                    procedures.
+                </p>
+                <p style="font-weight:bold">VIII – Dispute Resolution</p>
+                <p>Any dispute arising out of this agreement shall be subject to final and binding arbitration
+                    according to the Commercial Arbitration Rules of the American Arbitration Association then in
+                    effect. Judgment upon any arbitration award may be entered in any court, state or federal,
+                    having jurisdiction. The prevailing party in any arbitration and other legal proceeding under this
+                    section will be entitled to recover reasonable attorney’s fees, costs and expenses.
+                </p>
+                <p style="font-weight:bold">II – Governing Law</p>
+                <p>The laws of the State of Idaho shall govern this agreement.
+                </p>
+                <p style="font-weight:bold">II – Severability/Waiver of Breach/Entire Agreement</p>
+                <p>If any provision of this Agreement shall be deemed unenforceable by statute, rule, regulation,
+                    decision of a court of competent jurisdiction, or otherwise, the parties agree that such
+                    provision shall be construed in a manner as to most nearly preserve its original intent while
+                    maintaining its validity and/or enforceability. The invalidity of any part of this Agreement shall
+                    not render invalid the remainder of this Agreement and, to that extent, the provision of this
+                    Agreement shall be deemed to be severable.
+                    
+                </p>
+                <p>The failure of any party to enforce its rights after breach by another shall not be construed as to
+                    consent to the continuation of such breach, nor as a waiver of breach of any other provision of
+                    this Agreement.
+                </p>
+                <p>The parties acknowledge that this Agreement represents the entire agreement among them
+                    with respect to the Services and that it shall supersede any other agreement whether written,
+                    oral, or otherwise with regard to the subject matter contained herein.
+                    
+                </p>
+            </div>
+            
+            <!-- JQUERY -->
+            <!-- ERROR!!!!! <script src="https://html5shim.googlecode.com/svn/trunk/html5.js">
+            </script>-->
+            <apex:includeScript value="https://code.jquery.com/jquery-3.3.1.min.js"/>
+            <!-- SWEET ALERT 2 -->
+            <apex:includeScript value="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"/>
+            <apex:includeScript value="https://cdn.jsdelivr.net/npm/sweetalert2@9"/><!--https://unpkg.com/sweetalert2@7.12.10/dist/sweetalert2.all.js-->
+            <!-- PARSLEY -->
+            <apex:includeScript value="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.8.1/parsley.min.js"/>
+            <!-- TIPPY JS -->
+            <apex:includeScript value="https://unpkg.com/popper.js@1/dist/umd/popper.min.js"/>
+            <apex:includeScript value="https://unpkg.com/tippy.js@4"/>
+            <!-- IZIMODAL -->
+            <apex:includeScript value="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.5.1/js/iziModal.min.js"/>
+            <!-- AJAX IN APEX -->
+            <apex:includeScript value="/soap/ajax/45.0/connection.js"/>
+            <apex:includeScript value="/soap/ajax/45.0/apex.js"/>
+            <script type="text/javascript" src="/soap/ajax/45.0/connection.js">
+            </script>
+            <script type="text/javascript" src="/soap/ajax/45.0/apex.js">
+            </script>
+            <!-- VALIDATE JS, NOT USED -->
+            <!-- <apex:includeScript value="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"/> -->
+            
+            <script type="text/javascript">
+            console.log('Welcome');
+            $j = jQuery.noConflict();
+            var selectTitles='';
+            $j(document).ready(function(){
+                console.log('Welcome 2	');
+                //selectTitles = fnGenerateSelectTitle();
+                //fnChangueGELFY();
+                //SET DATE TO DATE INPUT
+                var now = new Date();
+                var day = ("0" + now.getDate()).slice(-2);
+                var month = ("0" + (now.getMonth() + 1)).slice(-2);
+                var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+                //$j('.date-submit-form').val(today);
+                $j('.secretary-lastname-required').val();
+                $j('.shareholder-lastname-required').val();
+                //fnAddClassToRequireFactFinders();
+                configTooltips();
+                <apex:outputText rendered="{!varsession.loginfail}">    
+                    fnShowMessage('Login Fail','Incorrect username/password. Please use the forgot username or password link below','error',false);
+                </apex:outputText>
+                <apex:outputText rendered="{!NOT(ISBLANK(varsession.uploadMessage))}">
+                    var bundle = '{!varsession.uploadMessage}';
+                    var split = bundle.split(',');
+                    var message = split[1];
+                    var type = split[0].toLowerCase();
+                    fnShowMessage(type,message,type,false,true);                    
+                </apex:outputText>
+            });
+            
+            var blobfile;
+            function getAsText(readFile) {
+                var reader = new FileReader();
+                reader.readAsDataURL(readFile);
+                reader.onload = attLoaded;
+            }
+            function attLoaded(evt) {  
+                console.log('att att ');
+                var fileString = evt.target.result;
+                blobfile = fileString;
+                
+                var  input = document.getElementById("{!$Component.frm.fileId}");
+                var filename= input.value;   
+                console.log('filename: ' + filename);
+                console.log('blobfile: ' + blobfile);
+                passToController(filename,blobfile);
+            }
+            function startUploadProcess(input){
+                console.log('Hi');
+                console.log(input.value);
+                if (input.files && input.files[0]) {
+                    remoteLocationPost();
+                    //document.getElementById("fileName").innerHTML = input.files[0].name;
+                }else{
+                    fnShowMessage('WARNING','Choose file','warning',false);
+                }
+                
+            }
+            function remoteLocationPost(){
+                /*var fbody= document.getElementById("fileId").files[0];
+            getAsText(fbody); */
+                var  input = document.getElementById("{!$Component.frm.fileId}");
+                console.log('att js' + input.value);
+                
+                if (input.files && input.files[0]) {
+                    /*var reader = new FileReader();
+                    console.log('f0 ' + input.files[0]);
+                    reader.file = input.files[0];
+                    console.log('1');
+                    reader.onload = function(e) {
+                        load();
+                        console.log('att js 22222');
+                        var base64 = e.target.result;
+                        const base64Mark = 'base64,';
+                        const dataStart = base64.indexOf(base64Mark) + base64Mark.length;
+                        passToController(input.files[0].name, base64.substring(dataStart));
+                        console.log('calllll: ' + input.value);
+                    }
+                    console.log('2');
+                    reader.readAsDataURL(input.files[0]);*/
+                    load();
+                    var  btn = document.getElementById("{!$Component.frm.btnsave}");
+                    btn.click();
+                }else{
+                    input.click();
+                }
+            }  
+            
+            function login(){
+                passToLogin();
+            }
+            
+            function verifyLogin(){
+                console.log('verify login.')
+            }
+            
+            function clearInputFile(){
+                var  input = document.getElementById("{!$Component.frm.fileId}");
+                input.value = '';
+                fnShowMessage('Success','File uploaded','success',false,true);
+
+                //document.getElementById("fileName").innerHTML = 'Choose File in the "Secure Upload Files" button';
+            }
+            
+            $j('.stage-name').change(function(){
+                console.log('Hi');
+                changeStageJs();
+            });
+            
+            //TOOLTIPS
+            function configTooltips(){
+                tippy('.tooltip-test',{
+                    placement: 'right',
+                    allowHTML:true,
+                    maxWidth:550,
+                    content: tippy('[data-tippy-content]')
+                });
+                
+                tippy('.tooltip-goodfaithdepositreceived',{
+                    placement: 'right',
+                    allowHTML:true,
+                    maxWidth:550,
+                    content: '<h4 style="font-size:12pt;font-weight: bold;">Good Faith Deposit Received</h4>' +
+                    '<p style="text-align: justify;font-size:12px">' +
+                    'When we have both Signed Letter of Intent and Good Faith Deposit, this is when the loan starts! This typically starts the 60-day process.' +
+                    '</p>'
+                });
+                
+                tippy('.tooltip-appraisalinspectiondate',{
+                    placement: 'right',
+                    allowHTML:true,
+                    maxWidth:550,
+                    content: '<h4 style="font-size:12pt;font-weight: bold;">Appraisal Inspection Date</h4>' +
+                    '<p style="text-align: justify;font-size:12px">' +
+                    'The date when the appraiser will be at the property!' +
+                    '</p>'
+                });
+                
+                tippy('.tooltip-appraisalduedate',{
+                    placement: 'right',
+                    allowHTML:true,
+                    maxWidth:550,
+                    content: '<h4 style="font-size:12pt;font-weight: bold;">Appraisal Due Date</h4>' +
+                    '<p style="text-align: justify;font-size:12px">' +
+                    'You will receive your results back from the appraiser on this date!' +
+                    '</p>'
+                });
+                
+                tippy('.tooltip-actualclosedate',{
+                    placement: 'right',
+                    allowHTML:true,
+                    maxWidth:550,
+                    content: '<h4 style="font-size:12pt;font-weight: bold;">Actual Close Date</h4>' +
+                    '<p style="text-align: justify;font-size:12px">' +
+                    'This is when Loan has closed and recorded!' +
+                    '</p>'
+                });
+                
+                tippy('.tooltip-prepaymentexpirationdate',{
+                    placement: 'right',
+                    allowHTML:true,
+                    maxWidth:550,
+                    content: '<h4 style="font-size:12pt;font-weight: bold;">Prepayment Penalty Expiration Date</h4>' +
+                    '<p style="text-align: justify;font-size:12px">' +
+                    'After this date you can refinance your property without penalty!' +
+                    '</p>'
+                });
+                
+                tippy('.tooltip-fixedperiodexpiration',{
+                    placement: 'right',
+                    allowHTML:true,
+                    maxWidth:550,
+                    content: '<h4 style="font-size:12pt;font-weight: bold;">Fixed Period Expiration</h4>' +
+                    '<p style="text-align: justify;font-size:12px">' +
+                    'This is when your loan becomes Adjustable' +
+                    '</p>'
+                });
+                
+                tippy('.tooltip-ballonpayment',{
+                    placement: 'right',
+                    allowHTML:true,
+                    maxWidth:550,
+                    content: '<h4 style="font-size:12pt;font-weight: bold;">Balloon Payment</h4>' +
+                    '<p style="text-align: justify;font-size:12px">' +
+                    'Your loan is due, and you need to refinance!' +
+                    '</p>'
+                });
+                
+                tippy('.tooltip-namechoice',{
+                    placement: 'right',
+                    allowHTML:true,
+                    maxWidth:550,
+                    content: '<h4 style="font-size:12pt;font-weight: bold;">Reinsurance Company Name Choices</h4>' +
+                    '<p style="text-align: justify;font-size:12px">' +
+                    'Submit at least two name choices for your reinsurance company. Choices should be as unique as possible.' +
+                    '</p>' +
+                    '<p style="text-align: justify;font-size:12px">' +
+                    'No company shall be registered by a name which:' +
+                    '</p>' +
+                    '<ul>' +
+                    '<li style="text-align:left;font-size:12px;">Is identical to an existing company</li>' +
+                    '<li style="text-align:left;font-size:12px">Contains the words “Chamber of Commerce”</li>' +
+                    '<li style="text-align:left;font-size:12px">Excludes the word “Incorporation” or “Inc.” to its name</li>' +
+                    '<li style="text-align:left;font-size:12px">' +
+                    'Contains the word(s) “Assurance:, “Bank”, “Building Society”, “Commonwealth”, “Co-Operative Society”, ' +
+                    '“Fidelity”, “Friendly Society”, “Guarantee”, “Indemnity”, “Insurance”, “Trust”, “Trustee”, or “Underwriter”; ' +
+                    'these names are considered to be undesirable or misleading' +
+                    '</li>' +
+                    '<li style="text-align:left;font-size:12px">Includes at its end, “Limited Life Company” or the abbreviation “LLC” as well as “Limited” or the abbreviation “Ltd.”; and/or</li>' +
+                    '<li style="text-align:left;font-size:12px">Contains any words offensive or in reference to the Modoc Tribe, Tribal Council, Chief or Native American Nation</li>' +
+                    '</ul>'
+                });
+            }
+            
+            //SWEET ALERT 
+            function fnShowMessage(title,message,icon,showCB,showConf=true){
+                swal.fire({
+                    title: title,
+                    text: message,
+                    icon: icon,
+                    showCancelButton: showCB,
+                    showConfirmButton: showConf,
+                    confirmButtonColor: '#c53535',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Okay'
+                });
+            }   
+            function  load(){
+                swal.fire({
+                    title: 'Uploading File!',
+                    text: 'Please Wait...',            
+                    timerProgressBar: true,
+                    allowOutsideClick: false,
+                    allowEscapeKey:false,
+                    allowEnterKey:false,
+                    onBeforeOpen: () => {
+                        swal.showLoading()
+                    }
+                    })
+                .then((result) => {
+                    if (result.dismiss === swal.DismissReason.timer) {
+                    }
+                });
+            }
+            
+            
+            
+            
+            $j("#lWhere").click(function(){
+                console.log('Chasu');
+                $j("#fWhere").toggle();
+            });
+            
+            function loadTippys(){
+                console.log('Chasu');
+                console.log($j('.stage-name').val());
+                console.log('Hola');
+                
+                configTooltips();
+            }
+            
+            function stageClick(val){
+                var keyValue = $j(val).attr('html-key-val');
+                console.log(keyValue);
+            }
+            
+            </script>
+            
+            
+        </body>
+    </html>
+    
+</apex:page>

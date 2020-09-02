@@ -1,0 +1,110 @@
+<apex:page >  
+   <html>  
+     <head>  
+       <apex:slds /> 
+       <script src="//cdnjs.cloudflare.com/ajax/libs/jsforce/1.9.1/jsforce.min.js"></script>
+       <apex:includeScript value="https://code.jquery.com/jquery-3.3.1.slim.min.js"/>
+       <script>
+        j$ = jQuery.noConflict();           
+        </script>
+       <style>  
+         .slds-scope .slds-page-header{  
+         border-radius: 0px;  
+         box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.1);  
+         }  
+         .bodyPart{  
+         padding:10px;  
+         }  
+       </style>  
+     </head>  
+     <body>  
+       <apex:form >  
+         <div class="slds" style="border:1px solid #D9D9D9;">  
+           <div class="slds-page-header">  
+             <span style=""> Upload Files</span>  
+           </div>  
+           <div id="progress_bar_container" style="display:none; padding:10px;">  
+             <span id="percentText"></span>  
+             <div class="slds-progress-bar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="25" role="progressbar">  
+               <span class="slds-progress-bar__value progress" style=" width: 0%;">  
+                 <span class="slds-assistive-text">Progress: 25%</span>  
+               </span>  
+             </div>  
+           </div><br/>  
+           <div class="bodyPart">  
+            <input type="file" name="file" id="file"/>  
+             <input type="button" id="uploadBtn" value="Upload" class="slds-button slds-button--brand"></input>  
+         </div>
+       </div>  
+     </apex:form>  
+      
+    <script>
+        document.addEventListener("DOMContentLoaded", function(event) {
+            document.getElementById('uploadBtn').addEventListener('click',function(event){
+                              
+                var input = document.getElementById("file");
+                if (input.files && input.files[0]) {
+
+                    var reader = new FileReader();
+                    reader.readAsDataURL(input.files[0]);
+                   
+                    var objectData = {                        
+                        PathOnClient : input.value,
+                        Title: input.files[0].name,
+                    }
+
+                    var ajax = uploadAttachment(objectData,input.files[0]);
+                }
+               
+            });
+        });
+
+        
+    function uploadAttachment (objectData,file) {
+        
+        // Define a boundary
+        var boundary = 'boundary_string_' + Date.now().toString();
+        var attachmentContentType = 'application/octet-stream';
+
+        // Serialize the object, excluding the body, which will be placed in the second partition of the multipart/form-data request
+        var serializedObject = JSON.stringify(objectData, function (key, value) { return key !== 'Body' ? value : undefined; });
+        console.log(serializedObject);
+        var requestBodyBeginning = '--' + boundary
+            + '\r\n'
+            + 'Content-Disposition: form-data; name="entity_attachment";'
+            + '\r\n'
+            + 'Content-Type: application/json'
+            + '\r\n\r\n'
+            + serializedObject
+            + '\r\n\r\n' +
+            '--' + boundary
+            + '\r\n'
+            + 'Content-Type: ' + attachmentContentType
+            + '\r\n'
+            + 'Content-Disposition: form-data; name="VersionData"; filename="'+objectData.PathOnClient+'"'
+            + '\r\n\r\n';
+
+        var requestBodyEnd =
+            '\r\n\r\n'
+            + '--' + boundary + '--';
+        
+        let sessionId = '{!$Api.Session_ID}';  
+
+        let targetUrl = '/services/data/v48.0/sobjects/ContentVersion';
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', targetUrl, true);
+        xhr.setRequestHeader('Accept', '*/*');
+        xhr.setRequestHeader('Authorization', 'Bearer ' + sessionId);
+        xhr.setRequestHeader('Content-Type', 'multipart/form-data' + "; boundary=\"" + boundary + "\"");
+        xhr.send(new Blob([requestBodyBeginning, file ,requestBodyEnd]));
+
+        xhr.onload = function(response){
+            console.log(response);
+        };
+
+        return xhr;
+    }
+    </script>  
+   </body>  
+ </html>  
+ </apex:page>
