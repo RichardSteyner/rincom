@@ -353,12 +353,12 @@
                         
                         <div class="row" style="min-height: 80px; border-top: 1px solid black; border-bottom: 1px solid black;">
                             <div class="col-12" style="margin-top: auto;margin-bottom: auto;">
-                                <h2 class="title">Welcome to the Rincon Group client community portal!</h2>
+                                <h2 class="title">Welcome to the Rincon Group client community portal. Please click on your property to access the details of your loan.</h2>
                             </div>
                         </div>
                         <div class="row" style="min-height: 100px">
                             <div class="col-12" style="margin-top: auto;margin-bottom: auto;">
-                                <h2 class="title" style="margin-top: 20px;">HERE IS A LIST OF YOUR PROPERTIES</h2>
+                                <h2 class="title" style="margin-top: 20px; display: none;">HERE IS A LIST OF YOUR PROPERTIES</h2>
                                 <table class="table table-borderless" style="width: 100%;">
                                     <thead>
                                         <tr style="font-weight:bold;">
@@ -466,9 +466,6 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12" style="padding-bottom: 10px" >
-                            <div class="title" style="text-align:left">LOAN STATUS</div>
-                        </div>
                         <div class="col-12" style="padding-bottom: 10px"  >
                             <!--<div class="panel-body">
                                 <apex:repeat value="{!optionsStage}" var="stg" >
@@ -502,7 +499,8 @@
                                                         <apex:variable var="tabindex" value="{! if(auxStage==stg.key,'0','-1') }"/>
                                                         <apex:variable var="status" value="{! if(auxStage==stg.key,'active',if(auxPercent>stg.prob,'complete','incomplete')) }"/>
                                                         <apex:variable var="selected" value="{! if(auxStage==stg.key,'true','false') }"/>
-                                                        <li class="slds-path__item slds-is-{!status} tooltip-test" role="presentation" html-key-val="{!stg.key}" data-tippy-content="{!stg.helpText}">
+                                                        <!-- <li class="slds-path__item slds-is-{!status} tooltip-test" role="presentation" html-key-val="{!stg.key}" data-tippy-content="{!stg.helpText}"> -->
+                                                        <li class="slds-path__item slds-is-{!status}" role="presentation" html-key-val="{!stg.key}" >
                                                             <a aria-selected="{!selected}" class="slds-path__link" href="javascript:void(0);" id="path-{!FLOOR(index__optionsStage)}" role="option" tabindex="{!tabindex}">
                                                               <span class="slds-path__stage">
                                                                 <svg class="slds-icon slds-icon_x-small" aria-hidden="true">
@@ -510,7 +508,7 @@
                                                                 </svg>
                                                                 <span class="slds-assistive-text">Stage Complete</span>
                                                               </span>
-                                                              <span class="slds-path__title">{!stg.key}</span>
+                                                              <span class="slds-path__title">{!stg.key}&nbsp;<button style="border: none;" type="button" data-tippy-content="{!stg.helpText}"><apex:image width="12px" style="padding-bottom: 5px;" url="{!$Resource.InfoIcon}"/></button></span>
                                                             </a>
                                                         </li>
                                                     </apex:repeat>
@@ -537,11 +535,11 @@
                     
                     <div class="row" style="padding: 10px 0;border-top: 1px solid black;">
                         <div class="col-6">
-                            <div class="title"><b>WHERE WE ARE:</b></div>
+                            <div class="title"><b>CURRENT LOAN STATUS</b></div>
                             <apex:outputText value="{!opportunity.Where_are_we__c}" escape="false"/>
                         </div>
                         <div class="col-6">
-                            <div class="title"><b>FILES FOR YOU </b><small>(click each file to download)</small></div>
+                            <div class="title"><b>Files For You <button type="button" class="tooltip-general tooltip-filesforyou" data-tippy-content=""><apex:image width="12px" style="padding-bottom: 5px;" url="{!$Resource.InfoIcon}"/></button>:</b></div>
                             <div class="row">
                                 <apex:repeat var="attachment" value="{!files}" >
                                     <apex:variable var="url" value="{!links[attachment.ContentDocumentId]}" />
@@ -571,14 +569,14 @@
                     
                     <div class="row" style="padding-top:10px; padding-bottom: 10px; border-top: 1px solid black;">
                         <div class="col-12"><div class="title">
-                            IMPORTANT DETAILS ABOUT YOUR LOAN
+                            <b>Important Details About Your Loan</b>
                             </div>
                         </div>
                     </div>
                     
                     <apex:outputPanel id="detailsLoan">
                         <div class="row" style="padding-bottom:10px">
-                            <div class="col-6">
+                            <div class="col-12">
                                 <apex:outputText rendered="{! NOT(ISBLANK(opportunity.Loan_Program__c))}">
                                     <strong style="text-transform: capitalize;">Loan Program <button type="button" class="tooltip-general tooltip-ballonpayment" data-tippy-content=""><apex:image width="12px" style="padding-bottom: 5px;" url="{!$Resource.InfoIcon}"/></button>: </strong>
                                     <apex:outputText styleClass="display: inline-block;" value="{0, date, MM'/'dd'/'yyyy}">
@@ -604,7 +602,7 @@
                                     </apex:outputText> <br/>
                                 </apex:outputText>
                             </div>
-                            <div class="col-6">
+                            <div class="col-12">
                                 <apex:outputText rendered="{! NOT(ISBLANK(opportunity.Signed_Letter_of_Intent__c))}">
                                     <strong>Signed Letter of Intent: </strong>
                                     <apex:outputText styleClass="display: inline-block;" value="{0, date, MM'/'dd'/'yyyy}">
@@ -657,7 +655,7 @@
                         </div>
                         <div class="row" style="padding-top:10px; padding-bottom:10px;border-top: 1px solid black;">
                             <div class="col-12" >
-                                <div class="title" style="text-align:left">ALL YOUR LOANS</div>
+                                <div class="title" style="text-align:left"><b>All Loans</b></div>
                             </div>
                             <div class="col-12" >
                         <table class="table table-striped" style="width: 100%; padding-top:10px">
@@ -1063,6 +1061,13 @@ value="SUBMIT"/>-->
                     var type = split[0].toLowerCase();
                     fnShowMessage(type,message,type,false,true);                    
                 </apex:outputText>
+                <apex:outputText rendered="{!NOT(ISBLANK(varsession.sendRequestMessage))}">
+                    var bundle = '{!varsession.sendRequestMessage}';
+                    var split = bundle.split(',');
+                    var message = split[1];
+                    var type = split[0].toUpperCase();
+                    fnShowMessage(type,message,type,false,true);                    
+                </apex:outputText>
             });
             
             var blobfile;
@@ -1169,7 +1174,7 @@ value="SUBMIT"/>-->
                     maxWidth:550,
                     content: '<h4 style="font-size:12pt;font-weight: bold;">Appraisal Inspection Date</h4>' +
                     '<p style="text-align: justify;font-size:12px">' +
-                    'The date when the appraiser will be at the property!' +
+                    'The date when the appraiser will be at the property.' +
                     '</p>'
                 });
                 
@@ -1179,7 +1184,7 @@ value="SUBMIT"/>-->
                     maxWidth:550,
                     content: '<h4 style="font-size:12pt;font-weight: bold;">Appraisal Due Date</h4>' +
                     '<p style="text-align: justify;font-size:12px">' +
-                    'You will receive your results back from the appraiser on this date!' +
+                    'The date the appraisal is submitted to the lender. The lender usually reviews the appraisal for 2-3 days before providing the value.' +
                     '</p>'
                 });
                 
@@ -1189,7 +1194,7 @@ value="SUBMIT"/>-->
                     maxWidth:550,
                     content: '<h4 style="font-size:12pt;font-weight: bold;">Actual Close Date</h4>' +
                     '<p style="text-align: justify;font-size:12px">' +
-                    'This is when Loan has closed and recorded!' +
+                    'This is the date the loan was closed and recorded.' +
                     '</p>'
                 });
                 
@@ -1199,7 +1204,17 @@ value="SUBMIT"/>-->
                     maxWidth:550,
                     content: '<h4 style="font-size:12pt;font-weight: bold;">Prepayment Penalty Expiration Date</h4>' +
                     '<p style="text-align: justify;font-size:12px">' +
-                    'After this date you can refinance your property without penalty!' +
+                    'After this date you can refinance your property without penalty.' +
+                    '</p>'
+                });
+
+                tippy('.tooltip-filesforyou',{
+                    placement: 'right',
+                    allowHTML:true,
+                    maxWidth:550,
+                    content: '<h4 style="font-size:12pt;font-weight: bold;">Files For You</h4>' +
+                    '<p style="text-align: justify;font-size:12px">' +
+                    'Click Each File to Download.' +
                     '</p>'
                 });
                 
@@ -1209,7 +1224,7 @@ value="SUBMIT"/>-->
                     maxWidth:550,
                     content: '<h4 style="font-size:12pt;font-weight: bold;">Fixed Period Expiration</h4>' +
                     '<p style="text-align: justify;font-size:12px">' +
-                    'This is when your loan becomes Adjustable' +
+                    'This is the date your interest rate becomes no longer fixed, and usually becomes fully adjustable.' +
                     '</p>'
                 });
                 
@@ -1219,7 +1234,7 @@ value="SUBMIT"/>-->
                     maxWidth:550,
                     content: '<h4 style="font-size:12pt;font-weight: bold;">Balloon Payment</h4>' +
                     '<p style="text-align: justify;font-size:12px">' +
-                    'Your loan is due, and you need to refinance!' +
+                    'Your loan is due, and you need to refinance.' +
                     '</p>'
                 });
                 

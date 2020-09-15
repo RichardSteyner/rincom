@@ -29,9 +29,11 @@ public without sharing class RinconVFPController {
     public List<cStage> optionsStage{get;set;}
     
     public RinconVFPController(){
+        System.debug('---------------------RINCON VFP CONTROLLER---------------------');
         varsession = new SessionData();
         varsession.forgotUOP = false;
         varsession.uploadMessage = null;
+        varsession.sendRequestMessage = null;
         opportunity = new Opportunity();
         baseUrl = Url.getSalesforceBaseUrl().toExternalForm() + '/sfc/servlet.shepherd/version/download/';
         links = new Map<Id, String>();
@@ -39,11 +41,11 @@ public without sharing class RinconVFPController {
             System.debug(ApexPages.currentPage().getParameters().get('contactId'));
             contactId = ApexPages.currentPage().getParameters().get('contactId');
             optionsStage = new List<cStage>();
-            optionsStage.add(new cStage('APPLICATION', 'Completing the Application', 20));
-            optionsStage.add(new cStage('PRE-APPROVAL', 'Lender pulls credit and issues a pre-approval based on preliminary borrower and property information ', 30));
-            optionsStage.add(new cStage('MORTGAGE DOCS', 'Collection of documents required by lender to process the mortgage application', 40));
-            optionsStage.add(new cStage('INSPECTIONS', 'Lender required inspections such as appraisal and environment reports', 50));
-            optionsStage.add(new cStage('UNDERWRITING', 'The file moves to underwriting once all applications/docs have been collected. Underwriter reviews credit report, borrower’s application and documentation, and third party reports and compares them with their program guidelines. ', 80));
+            optionsStage.add(new cStage('APPLICATION', 'The Letter of Interest has been signed and Good Faith Deposit Received. The lender pulls credit and orders the 3rd party reports.', 20));
+            optionsStage.add(new cStage('PRE-APPROVAL', 'In this stage we will gather all of the information required for the Letter of Interest. Please see below for what is needed.', 30));
+            optionsStage.add(new cStage('MORTGAGE DOCS', 'Collection of documents required by lender to process the mortgage application.', 40));
+            optionsStage.add(new cStage('INSPECTIONS', 'Lender required inspections such as appraisal and environment reports are completed.', 50));
+            optionsStage.add(new cStage('UNDERWRITING', 'The file moves to underwriting once all applications/docs have been collected. Underwriter reviews credit report, borrower’s application and documentation, and third party reports and compares them with their program guidelines.', 80));
             optionsStage.add(new cStage('CLOSING', 'Loan has been approved. Lender Is drafting loan documents', 90));
             optionsStage.add(new cStage('CLOSED', 'Loan has closed and recorded with the county recorder\'s office.', 100));
         	String objectName = 'Opportunity';
@@ -201,6 +203,7 @@ public without sharing class RinconVFPController {
     public PageReference redirectOpp() {
         System.debug('username: ' + varsession.username);
         System.debug('password: ' + varsession.password);
+        varsession.sendRequestMessage = null;
         List<Contact> contact = [SELECT Id FROM Contact WHERE Username__c=:varsession.username];
         if(contact.size()==0)
         {
@@ -223,6 +226,8 @@ public without sharing class RinconVFPController {
 	}
     
      public PageReference redirectForgotUOP() {
+        varsession.sendRequestMessage = null;
+        varsession.loginfail = false;
         System.debug('Forgot password');
         varsession.forgotUOP = true;
         varsession.loginPage = false;
@@ -236,6 +241,8 @@ public without sharing class RinconVFPController {
         varsession.loginPage = true;
         varsession.homePage = false;
         varsession.loanPage = false;
+        varsession.uploadMessage = null;
+        varsession.sendRequestMessage = null;
         PageReference page =  ApexPages.currentPage();
         return page;
 	}
@@ -315,7 +322,7 @@ public without sharing class RinconVFPController {
             cd.PreferencesPasswordRequired=false;
             cd.PreferencesAllowOriginalDownload= true;
             insert cd;
-        
+            sendEmail();
             
         } catch (DMLException e) {
             //ApexPages.addMessage(new ApexPages.message(ApexPages.severity.ERROR,'Error uploading File'));
@@ -346,20 +353,23 @@ public without sharing class RinconVFPController {
 		Messaging.sendEmail(mails);
     }
     
-    public void sendRecoveryEmail(){
+    public PageReference sendRecoveryEmail(){
+        varsession.loginfail = false;
         String body = '<p>' + varsession.name + ' has forgotten his/her username or password please reach out to the client with the following details below:<br/>' + 
             varsession.email + '<br/>' + varsession.phone;
         List<Messaging.SingleEmailMessage> mails = new List<Messaging.SingleEmailMessage>();
 		Messaging.SingleEmailMessage mail = New Messaging.SingleEmailMessage();
-		//String[] toAddress =  new String[]{'gleon@cloudcreations.com'};
+		//String[] toAddress =  new String[]{'rurupeque@cloudcreations.com'};
         String[] toAddress =  new String[]{'tiffanie@rincon-group.com'};
 		mail.setToAddresses(toAddress);
 		mail.setSubject(varsession.name + ' forgot password');
         mail.setHtmlBody(body);
         mails.add(mail);
 		Messaging.sendEmail(mails);
+        varsession.sendRequestMessage = 'Thanks, Thank you for submitting your request.';
         varsession.loginPage = true;
         varsession.forgotUOP = false;
+        return null;
     }
     
     public class cStage{
@@ -387,6 +397,7 @@ public without sharing class RinconVFPController {
         public Boolean loginfail {get; set;}
         public String message {get;set;}
         public String uploadMessage {get; set;}
+        public String sendRequestMessage {get; set;}
     }
 
     
