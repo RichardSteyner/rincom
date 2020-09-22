@@ -508,7 +508,7 @@
                                                                 </svg>
                                                                 <span class="slds-assistive-text">Stage Complete</span>
                                                               </span>
-                                                              <span class="slds-path__title">{!stg.key}&nbsp;<button style="border: none;" type="button" data-tippy-content="{!stg.helpText}"><apex:image width="12px" style="padding-bottom: 5px;" url="{!$Resource.InfoIcon}"/></button></span>
+                                                              <span class="slds-path__title">{!stg.key}&nbsp;<button style="border: none;" type="button" data-tippy-content="{!stg.helpText}"><apex:image width="12px" style="padding-bottom: 5px;" url="{!$Resource.InfoIconPath}"/></button></span>
                                                             </a>
                                                         </li>
                                                     </apex:repeat>
@@ -535,7 +535,7 @@
                     
                     <div class="row" style="padding: 10px 0;border-top: 1px solid black;">
                         <div class="col-6">
-                            <div class="title"><b>CURRENT LOAN STATUS</b></div>
+                            <div class="title"><b>Current Loan Status</b></div>
                             <apex:outputText value="{!opportunity.Where_are_we__c}" escape="false"/>
                         </div>
                         <div class="col-6">

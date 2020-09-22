@@ -41,13 +41,12 @@ public without sharing class RinconVFPController {
             System.debug(ApexPages.currentPage().getParameters().get('contactId'));
             contactId = ApexPages.currentPage().getParameters().get('contactId');
             optionsStage = new List<cStage>();
-            optionsStage.add(new cStage('APPLICATION', 'The Letter of Interest has been signed and Good Faith Deposit Received. The lender pulls credit and orders the 3rd party reports.', 20));
-            optionsStage.add(new cStage('PRE-APPROVAL', 'In this stage we will gather all of the information required for the Letter of Interest. Please see below for what is needed.', 30));
+            optionsStage.add(new cStage('PRE-APPROVAL', 'In this stage we will gather all of the information required for the Letter of Interest. Please see below for what is needed.', 20));
+            optionsStage.add(new cStage('UNDER APPLICATION', 'The Letter of Interest has been signed and Good Faith Deposit Received. The lender pulls credit and orders the 3rd party reports.', 30));
             optionsStage.add(new cStage('MORTGAGE DOCS', 'Collection of documents required by lender to process the mortgage application.', 40));
             optionsStage.add(new cStage('INSPECTIONS', 'Lender required inspections such as appraisal and environment reports are completed.', 50));
-            optionsStage.add(new cStage('COMMITMENT LETTER', 'The loan has been formally approved. The lender draws loans documents and escrow prepares closing statements.', 65));
-            optionsStage.add(new cStage('UNDERWRITING', 'The file moves to underwriting once all applications/docs have been collected. Underwriter reviews credit report, borrower’s application and documentation, and third party reports and compares them with their program guidelines.', 80));
-            optionsStage.add(new cStage('CLOSING', 'Loan has been approved. Lender Is drafting loan documents', 90));
+            optionsStage.add(new cStage('UNDERWRITING', 'The file moves to underwriting once all applications/docs have been collected. Underwriter reviews credit report, borrower’s application and documentation, and third party reports and compares them with their program guidelines.', 70));
+            optionsStage.add(new cStage('COMMITMENT LETTER', 'The loan has been formally approved. The lender draws loans documents and escrow prepares closing statements.', 85));
             optionsStage.add(new cStage('CLOSED', 'Loan has closed and recorded with the county recorder\'s office.', 100));
         	String objectName = 'Opportunity';
             /*String allFields = getAllFields(objectName);
@@ -67,8 +66,8 @@ public without sharing class RinconVFPController {
                 auxPercent = opportunity.Probability;
                 //opportunity.Signed_Letter_of_Intent__c = system.today();
                 
-                System.debug(opportunity.CloseDate);
-                auxCloseDate = opportunity.CloseDate;
+                System.debug(opportunity.Projected_Closed_Date__c);
+                auxCloseDate = opportunity.Projected_Closed_Date__c;
                 System.debug(auxCloseDate);
                 loadOppsRelated();                
                 system.debug(opportunity.Where_are_we__c);
@@ -118,8 +117,8 @@ public without sharing class RinconVFPController {
                     auxStage = opportunity.StageName;
                     //opportunity.Signed_Letter_of_Intent__c = system.today();
                     
-                    System.debug(opportunity.CloseDate);
-                    auxCloseDate = opportunity.CloseDate;
+                    System.debug(opportunity.Projected_Closed_Date__c);
+                    auxCloseDate = opportunity.Projected_Closed_Date__c;
                     System.debug(auxCloseDate);
                     loadOppsRelated();
                     
@@ -194,7 +193,7 @@ public without sharing class RinconVFPController {
     public PageReference save() {
 		PageReference page =  ApexPages.currentPage();
         System.debug('Save');
-        opportunity.CloseDate = auxCloseDate;
+        opportunity.Projected_Closed_Date__c = auxCloseDate;
         update opportunity;
         page.getParameters().put('contactId',null);
         page.setRedirect(true);
@@ -205,6 +204,10 @@ public without sharing class RinconVFPController {
         System.debug('username: ' + varsession.username);
         System.debug('password: ' + varsession.password);
         varsession.sendRequestMessage = null;
+        if(String.isBlank(varsession.username) || String.isBlank(varsession.password)){
+            varsession.loginfail = true;
+            return null;
+        }
         List<Contact> contact = [SELECT Id FROM Contact WHERE Username__c=:varsession.username];
         if(contact.size()==0)
         {
@@ -249,7 +252,7 @@ public without sharing class RinconVFPController {
 	}
     
     public PageReference redirectLoanPage() {
-       
+        varsession.uploadMessage = null;
         String objectName = 'Opportunity';
         String allFields = getAllFields(objectName);
         
@@ -262,7 +265,7 @@ public without sharing class RinconVFPController {
         opportunity = opportunityList.get(0);
         auxStage = opportunity.StageName;
         auxPercent = opportunity.Probability;
-        auxCloseDate = opportunity.CloseDate;
+        auxCloseDate = opportunity.Projected_Closed_Date__c;
         System.debug(auxPercent);
         varsession.homePage = false;
         varsession.loanPage = true;
