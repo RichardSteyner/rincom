@@ -43,7 +43,7 @@ public without sharing class RinconVFPController {
             optionsStage = new List<cStage>();
             optionsStage.add(new cStage('PRE-APPROVAL', 'In this stage we will gather all of the information required for the Letter of Interest. Please see below for what is needed.', 20));
             optionsStage.add(new cStage('UNDER APPLICATION', 'The Letter of Interest has been signed and Good Faith Deposit Received. The lender pulls credit and orders the 3rd party reports.', 30));
-            optionsStage.add(new cStage('MORTGAGE DOCS', 'Collection of documents required by lender to process the mortgage application.', 40));
+            optionsStage.add(new cStage('MORTGAGE FORMS', 'Collection of documents required by lender to process the mortgage application.', 40));
             optionsStage.add(new cStage('INSPECTIONS', 'Lender required inspections such as appraisal and environment reports are completed.', 50));
             optionsStage.add(new cStage('UNDERWRITING', 'The file moves to underwriting once all applications/docs have been collected. Underwriter reviews credit report, borrower’s application and documentation, and third party reports and compares them with their program guidelines.', 70));
             optionsStage.add(new cStage('COMMITMENT LETTER', 'The loan has been formally approved. The lender draws loans documents and escrow prepares closing statements.', 85));

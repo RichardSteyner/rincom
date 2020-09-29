@@ -508,7 +508,7 @@
                                                                 </svg>
                                                                 <span class="slds-assistive-text">Stage Complete</span>
                                                               </span>
-                                                              <span class="slds-path__title">{!stg.key}&nbsp;<button style="border: none;" type="button" data-tippy-content="{!stg.helpText}"><apex:image width="12px" style="padding-bottom: 5px;" url="{!$Resource.InfoIconPath}"/></button></span>
+                                                              <span class="slds-path__title">{!stg.key}&nbsp;<span data-tippy-content="{!stg.helpText}"><apex:image width="12px" style="padding-bottom: 5px;" url="{!$Resource.InfoIconPath}"/></span></span>
                                                             </a>
                                                         </li>
                                                     </apex:repeat>
@@ -579,10 +579,8 @@
                             <div class="col-12">
                                 <apex:outputText rendered="{! NOT(ISBLANK(opportunity.Loan_Program__c))}">
                                     <strong style="text-transform: capitalize;">Loan Program <button type="button" class="tooltip-general tooltip-ballonpayment" data-tippy-content=""><apex:image width="12px" style="padding-bottom: 5px;" url="{!$Resource.InfoIcon}"/></button>: </strong>
-                                    <apex:outputText styleClass="display: inline-block;" value="{0, date, MM'/'dd'/'yyyy}">
-                                        <apex:param value="{!IF(opportunity.Loan_Program__c == null, '', opportunity.Loan_Program__c)}" />
-                                    </apex:outputText> <br/>
-                                </apex:outputText>
+                                    {!opportunity.Loan_Program__c}
+                                </apex:outputText> <br/>
                                 <apex:outputText rendered="{! NOT(ISBLANK(opportunity.Loan_Amount__c))}">
                                     <strong style="text-transform: capitalize;">Loan Amount Requested: </strong>
                                     <apex:outputText value="${0,number,###,##0.00}">
@@ -647,9 +645,7 @@
                                 </apex:outputText>
                                 <apex:outputText rendered="{! NOT(ISBLANK(opportunity.Prepayment_Penalty__c))}">
                                     <strong style="text-transform: capitalize;">Prepayment Penalty <button type="button" class="tooltip-general tooltip-ballonpayment" data-tippy-content=""><apex:image width="12px" style="padding-bottom: 5px;" url="{!$Resource.InfoIcon}"/></button>: </strong>    
-                                    <apex:outputText styleClass="display: inline-block;" value="{0, date, MM'/'dd'/'yyyy}">
-                                        <apex:param value="{!IF(opportunity.Prepayment_Penalty__c == null, '', opportunity.Prepayment_Penalty__c)}" />
-                                    </apex:outputText> <br/>
+                                    {!opportunity.Prepayment_Penalty__c} <br/>
                                 </apex:outputText>
                             </div>
                         </div>
@@ -1194,7 +1190,7 @@ value="SUBMIT"/>-->
                     maxWidth:550,
                     content: '<h4 style="font-size:12pt;font-weight: bold;">Actual Close Date</h4>' +
                     '<p style="text-align: justify;font-size:12px">' +
-                    'This is the date the loan was closed and recorded.' +
+                    'This is the date the loan with closed and recorded.' +
                     '</p>'
                 });
                 
@@ -1261,6 +1257,16 @@ value="SUBMIT"/>-->
                     '<li style="text-align:left;font-size:12px">Includes at its end, “Limited Life Company” or the abbreviation “LLC” as well as “Limited” or the abbreviation “Ltd.”; and/or</li>' +
                     '<li style="text-align:left;font-size:12px">Contains any words offensive or in reference to the Modoc Tribe, Tribal Council, Chief or Native American Nation</li>' +
                     '</ul>'
+                });
+
+                tippy('.tooltip-loanclosedate',{
+                    placement: 'right',
+                    allowHTML:true,
+                    maxWidth:550,
+                    content: '<h4 style="font-size:12pt;font-weight: bold;">Loan Close Date</h4>' +
+                    '<p style="text-align: justify;font-size:12px">' +
+                    'This is the date the loan with closed and recorded.' +
+                    '</p>'
                 });
             }
             
